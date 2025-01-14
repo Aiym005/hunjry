@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Монгол болон гадаад орны амттай хоолны жор. Өглөөний цай, өдрийн хоол, оройн хоол, амттан, ундаа, зууш.">
+    <meta name="keywords" content="хоолны жор, монгол хоол, гэрийн хоол, амттан, ундаа">
+    <title>Хоолны жор | Hungry-App</title>
+    <link rel="stylesheet" href="/htmls/css/food_info.css">
+    <link rel="canonical" href="https://hungry-app.mn/htmls/food_info.html">
+    <script type="module" src="/js/components/FilterButton.js"></script>
+    <script type="module" src="/js/components/PaginationControl.js"></script>
+    <script type="module" src="/js/components/RecipeCard.js"></script>
+    <script type="module" src="/js/components/RecipeGrid.js"></script>
+</head>
+
+<body>
+    <header>
+        <a href="/htmls/nuur.html">
+            <img src="/iconpic/logo.gif" alt="Hungry App Logo">
+        </a>
+        <section>
+            <input type="search" name="search" id="search-bar">
+        </section>
+        <nav>
+            <a href="nuur.html">
+                <img src="/iconpic/log-out.png" alt="log-out pic">
+            </a>
+            <a href="fridge.html">
+                <img src="/iconpic/fridge.png" alt="fridge pic">
+            </a>
+            <a href="plan.html">
+                <img src="/iconpic/plan.png" alt="plan pic">
+            </a>
+            <a href="food.html">
+                <img src="/iconpic/food.png" alt="food info pic">
+            </a>
+            <a href="user_profile.html">
+                <img src="/iconpic/profile.png" alt="user's profile pic">
+            </a>
+        </nav>
+    </header>
+    <main>
+        <nav class="filter-btns">
+            <filter-btn filter="Бүгд">Бүгд</filter-btn>
+            <filter-btn filter="Өглөөний цай">Өглөөний цай</filter-btn>
+            <filter-btn filter="Өдрийн хоол">Өдрийн хоол</filter-btn>
+            <filter-btn filter="Оройн хоол">Оройн хоол</filter-btn>
+            <filter-btn filter="Амттан">Амттан</filter-btn>
+            <filter-btn filter="Уух зүйл">Уух зүйл</filter-btn>
+            <filter-btn filter="Зууш">Зууш</filter-btn>
+        </nav>
+        <recipe-grid></recipe-grid>
+        <pagination-controls></pagination-controls>
+    </main>
+    <footer>
+        <section>
+            <h3>Жор төрөл</h3>
+            <ul>
+                <li>Оройн хоол</li>
+                <li>Өглөөний хоол</li>
+                <li>Амттан</li>
+                <li>Эрүүл хоол</li>
+                <li>Хүүхдэд зориулсан</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Оройн хоол</h3>
+            <ul>
+                <li>Тахиа</li>
+                <li>Үхрийн мах</li>
+                <li>Суп, шөл</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Орон орны хоол</h3>
+            <ul>
+                <li>Азийн</li>
+                <li>Италийн</li>
+                <li>Грек</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Улирал</h3>
+            <ul>
+                <li>Хавар</li>
+                <li>Зун</li>
+                <li>Намар</li>
+                <li>Өвөл</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Холбоо барих</h3>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>X (Twitter)</li>
+            </ul>
+        </section>
+    </footer>
+</body>
+
+</html>
