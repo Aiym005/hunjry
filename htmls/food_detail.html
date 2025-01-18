@@ -1,18 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хоолны дэлгэрэнгүй мэдээлэл</title>
+
+    <meta name="theme-color" content="#4CAF50">
+    <title>Hungry App - Хоолны жорын дэлгэрэнгүй | Орц, найрлага, хийх дараалал</title>
+    <link rel="stylesheet" href="css/food_detail.css">
 </head>
+
 <body>
-    <header>
-        <a href="/htmls/nuur.html">
-            <img src="/iconpic/logo.gif" alt="Hungry App Logo">
+    <a href="#main-content" class="skip-link visually-hidden">Үндсэн агуулга руу очих</a>
+    
+    <header role="banner">
+        <a class="logo" href="/htmls/nuur.html" aria-label="Нүүр хуудас руу буцах">
+            <img src="/iconpic/logo.gif" 
+                 alt="Hungry App Logo" 
+                 width="45" 
+                 height="45"
+                 loading="eager"
+                 fetchpriority="high">
         </a>
-        <section>
-            <input type="search" name="search" id="search-bar">
+
+        <section class="search-bar">
+            <label for="search-bar" class="visually-hidden">Хоолны нэрээр хайх</label>
+            <input type="search" 
+                   name="search" 
+                   id="search-bar" 
+                   placeholder="Хоолны нэр"
+                   aria-label="Хоолны нэрээр хайх">
+            <section class="dropdown-container" aria-live="polite"></section>
         </section>
+
         <nav>
             <a href="nuur.html">
                 <img src="/iconpic/log-out.png" alt="log-out pic">
@@ -23,7 +43,7 @@
             <a href="plan.html">
                 <img src="/iconpic/plan.png" alt="plan pic">
             </a>
-            <a href="food.html">
+            <a href="food_info.html">
                 <img src="/iconpic/food.png" alt="food info pic">
             </a>
             <a href="user_profile.html">
@@ -31,74 +51,95 @@
             </a>
         </nav>
     </header>
-    <main>
-        <article>            
-            <section>
-                <article>
-                    <img src="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
-                     alt="Бяслагтай макарон">
-                </article>
-                <article>
-                    <button>
-                        <img src="/iconpic/heart.png" alt="like">
-                    </button>
-                    <button>
-                        <img src="/iconpic/comment.png" alt="comment">
-                    </button>   
-                    <img src="/iconpic/pizza.png" alt="rate">
-                    <img src="/iconpic/pizza.png" alt="rate">
-                    <img src="/iconpic/pizza.png" alt="rate">
-                    <img src="/iconpic/pizza.png" alt="rate">
-                    <img src="/iconpic/pizza.png" alt="rate">
-                </article>
-                <article>
+
+    <main id="main-content" role="main" tabindex="-1">
+        <article class="recipe-details">
+            <h1 class="visually-hidden">Хоолны жорын дэлгэрэнгүй мэдээлэл</h1>
+            
+            <section class="recipe-image" aria-label="Хоолны зураг">
+                <img src="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
+                     alt="Бяслагтай макарон"
+                     width="800"
+                     height="600"
+                     loading="eager">
+                <h3>Бяслагтай макарон</h3>
+                <div class="icon" role="group" aria-label="Үнэлгээ болон сэтгэгдэл">
+                    <div class="icons-container">
+                        <button type="button" aria-label="Таалагдлаа" aria-pressed="false">
+                            <img src="/iconpic/heart.png" alt="" aria-hidden="true">
+                        </button>
+                        <button type="button" aria-label="Сэтгэгдэл бичих" aria-expanded="false">
+                            <img src="/iconpic/comment.png" alt="" aria-hidden="true">
+                        </button>
+                    </div>
+                    
+                    <div class="rating-container" role="group" aria-label="Үнэлгээ">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <img src="/iconpic/pizza.png" alt="" aria-hidden="true">
+                        <span class="visually-hidden">5 оноо өгсөн</span>
+                    </div>
+                </div>
+                
+                <section class="suggested-foods" aria-label="Санал болгож буй бусад хоол">
                     <section>
                         <img src="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
                         alt="Бяслагтай макарон">
-                        <h2>Бяслагтай макарон</h2>
+                        <h3>Бяслагтай макарон</h3>
                     </section>
                     <section>
                         <img src="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
                         alt="Бяслагтай макарон">
-                        <h2>Бяслагтай макарон</h2>
+                        <h3>Бяслагтай макарон</h3>
                     </section>
-                </article>
+                </section>
             </section>
-            <section>
-                <h2>Орц</h2>
-                <ul>
-                    <li>Макарон</li>
-                    <li>Бяслаг</li>
-                    <li>Масло</li>
-                    <li>Сүү</li>
-                    <li>Сахар</li>
-                </ul>     
+
+            <section class="recipe-content" aria-label="Жорын мэдээлэл">
+                <section class="ingredients">
+                    <h2>Орц</h2>
+                    <ul>
+                        <li>Макарон</li>
+                        <li>Бяслаг</li>
+                        <li>Масло</li>
+                        <li>Сүү</li>
+                        <li>Сахар</li>
+                    </ul>     
+                </section>
+                <section class="instructions">
+                    <h2>Заавар</h2>
+                    <ul>
+                        <li>Макарон</li>
+                        <li>Бяслаг</li>
+                        <li>Масло</li>
+                        <li>Сүү</li>
+                        <li>Сахар</li>
+                    </ul>     
+                </section>
             </section>
-            <section>
-                <h2>Заавар</h2>
-                <ul>
-                    <li>Макарон</li>
-                    <li>Бяслаг</li>
-                    <li>Масло</li>
-                    <li>Сүү</li>
-                    <li>Сахар</li>
-                </ul>     
-            </section>
-            <section>
-                <h2>Сэтгэгдэл</h2>
-                <article>
-                    <input type="text" name="text" id="commentInput">
-                    <button>Нийтлэх</button>
-                </article>
-                <article>
-                    <img src="/iconpic/profile.png" alt="profile pic">
-                    <p>Сэтгэгдэл</p>
-                </article>
+
+            <section class="comments" aria-label="Сэтгэгдлүүд">
+                <h3>Сэтгэгдэл</h3>
+                <form class="comment-input" aria-label="Сэтгэгдэл бичих">
+                    <label for="commentInput" class="visually-hidden">Сэтгэгдэл</label>
+                    <input type="text" 
+                           id="commentInput" 
+                           placeholder="Сэтгэгдэл үлдээх"
+                           aria-label="Сэтгэгдэл бичих">
+                    <button type="submit">Нийтлэх</button>
+                </form>
+                <div class="comments-container" aria-live="polite">
+                            <img src="/iconpic/profile.png" alt="profile pic">
+                            <p>Сэтгэгдэл</p>
+                </div>
             </section>
         </article>
     </main>
-    <footer>
-        <section>
+
+    <footer role="contentinfo">
+        <section class="recipe_categories">
             <h3>Жор төрөл</h3>
             <ul>
                 <li>Оройн хоол</li>
@@ -108,7 +149,7 @@
                 <li>Хүүхдэд зориулсан</li>
             </ul>
         </section>
-        <section>
+        <section class="meal-types">
             <h3>Оройн хоол</h3>
             <ul>
                 <li>Тахиа</li>
@@ -116,7 +157,7 @@
                 <li>Суп, шөл</li>
             </ul>
         </section>
-        <section>
+        <section class="international-cuisine">
             <h3>Орон орны хоол</h3>
             <ul>
                 <li>Азийн</li>
@@ -124,7 +165,7 @@
                 <li>Грек</li>
             </ul>
         </section>
-        <section>
+        <section class="seasons">
             <h3>Улирал</h3>
             <ul>
                 <li>Хавар</li>
@@ -133,7 +174,7 @@
                 <li>Өвөл</li>
             </ul>
         </section>
-        <section>
+        <section class="social-links">
             <h3>Холбоо барих</h3>
             <ul>
                 <li>Facebook</li>
@@ -142,5 +183,33 @@
             </ul>
         </section>
     </footer>
+
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #4CAF50;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
 </body>
+
 </html>
