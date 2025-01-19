@@ -1,39 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хэрэглэгчийн хэсэг</title>
+    <link rel="stylesheet" href="css/user_profile.css">
+    <title>Hungry App - Хэрэглэгчийн хэсэг | Таалагдсан жор</title>
 </head>
+
 <body>
     <header>
-        <a href="/htmls/nuur.html">
-            <img src="/iconpic/logo.gif" alt="Hungry App Logo">
+        <a class="logo" href="/htmls/nuur.html" aria-label="Нүүр хуудас руу буцах">
+            <img src="/iconpic/logo.gif" 
+                 alt="Hungry App Logo" 
+                 width="45" 
+                 height="45"
+                 loading="eager"
+                 fetchpriority="high">
         </a>
-        <section>
-            <input type="search" name="search" id="search-bar">
+
+        <section class="search-bar">
+            <label for="search-bar" class="visually-hidden">Хоолны нэрээр хайх</label>
+            <input type="search" 
+                   name="search" 
+                   id="search-bar" 
+                   placeholder="Хоолны нэр"
+                   aria-label="Хоолны нэрээр хайх">
+            <section class="dropdown-container" aria-live="polite"></section>
         </section>
-        <nav>
-            <a href="nuur.html">
-                <img src="/iconpic/log-out.png" alt="log-out pic">
+
+        <nav class="icons" aria-label="Үндсэн цэс">
+            <a href="nuur.html" aria-label="Гарах">
+                <img src="/iconpic/log-out.png" alt="Гарах" width="30" height="30" loading="lazy">
             </a>
-            <a href="fridge.html">
-                <img src="/iconpic/fridge.png" alt="fridge pic">
+            <a href="fridge.html" aria-label="Хөргөгч">
+                <img src="/iconpic/fridge.png" alt="Хөргөгч" width="30" height="30" loading="lazy">
             </a>
-            <a href="plan.html">
-                <img src="/iconpic/plan.png" alt="plan pic">
+            <a href="plan.html" aria-label="Төлөвлөгөө">
+                <img src="/iconpic/plan.png" alt="Төлөвлөгөө" width="30" height="30" loading="lazy">
             </a>
-            <a href="food.html">
-                <img src="/iconpic/food.png" alt="food info pic">
+            <a href="food.html" aria-label="Хоол">
+                <img src="/iconpic/food.png" alt="Хоол" width="30" height="30" loading="lazy">
             </a>
-            <a href="user_profile.html">
-                <img src="/iconpic/profile.png" alt="user's profile pic">
+            <a href="hereglegch.html" aria-label="Профайл">
+                <img src="/iconpic/profile.png" alt="Профайл" width="30" height="30" loading="lazy">
             </a>
         </nav>
     </header>
+
     <main>
-        <article>
-            <section>
+        <section class="main_info">
+            <section class="profile">
                 <h2>Хувийн мэдээлэл</h2>
                 <article class="user_info">
                     <dl>
@@ -46,36 +63,48 @@
                         <dt>И-мэйл:</dt>
                         <dd>eater@gmail.com</dd>
                     </dl>
-                    <a href="nuur.html">
-                        <button>Системээс гарах</button>
+                    <a href="nuur.html" class="logout" aria-label="Системээс гарах">
+                        <button type="button">Системээс гарах</button>
                     </a>
                 </article>
             </section>
-            <section>
+
+            <section class="user_favs">
                 <h2>Надад таалагдсан хоол</h2>
-                <article>
-                    <a href="food_detail.html">
-                        <img src="/foodpic/image.webp" alt="liked food">
-                        <h3>Пармежан тахианы мах</h3>
-                    </a>
-                </article>
-                <article>
-                    <a href="food_detail.html">
-                        <img src="/foodpic/image.webp" alt="liked food">
-                        <h3>Пармежан тахианы мах</h3>
-                    </a>
-                </article>
-                <article>
-                    <a href="food_detail.html">
-                        <img src="/foodpic/image.webp" alt="liked food">
-                        <h3>Пармежан тахианы мах</h3>
-                    </a>
-                </article>
+                <div class="favorites-grid">
+                    <article class="recipe-card">
+                        <a href="food_detail.html" aria-label="Пармежан тахианы махны жор">
+                            <img src="/foodpic/image.webp" 
+                                 alt="Пармежан тахианы мах" 
+                                 width="200" 
+                                 height="150"
+                                 loading="lazy">
+                            <h3>Пармежан тахианы мах</h3>
+                        </a>
+                        <a href="food_detail.html" aria-label="Пармежан тахианы махны жор">
+                            <img src="/foodpic/image.webp" 
+                                 alt="Пармежан тахианы мах" 
+                                 width="200" 
+                                 height="150"
+                                 loading="lazy">
+                            <h3>Пармежан тахианы мах</h3>
+                        </a>
+                        <a href="food_detail.html" aria-label="Пармежан тахианы махны жор">
+                            <img src="/foodpic/image.webp" 
+                                 alt="Пармежан тахианы мах" 
+                                 width="200" 
+                                 height="150"
+                                 loading="lazy">
+                            <h3>Пармежан тахианы мах</h3>
+                        </a>
+                    </article>
+                </div>
             </section>
-        </article>
+        </section>
     </main>
+
     <footer>
-        <section>
+        <section class="recipe_categories">
             <h3>Жор төрөл</h3>
             <ul>
                 <li>Оройн хоол</li>
@@ -85,7 +114,7 @@
                 <li>Хүүхдэд зориулсан</li>
             </ul>
         </section>
-        <section>
+        <section class="meal-types">
             <h3>Оройн хоол</h3>
             <ul>
                 <li>Тахиа</li>
@@ -93,7 +122,7 @@
                 <li>Суп, шөл</li>
             </ul>
         </section>
-        <section>
+        <section class="international-cuisine">
             <h3>Орон орны хоол</h3>
             <ul>
                 <li>Азийн</li>
@@ -101,7 +130,7 @@
                 <li>Грек</li>
             </ul>
         </section>
-        <section>
+        <section class="seasons">
             <h3>Улирал</h3>
             <ul>
                 <li>Хавар</li>
@@ -110,7 +139,7 @@
                 <li>Өвөл</li>
             </ul>
         </section>
-        <section>
+        <section class="social-links">
             <h3>Холбоо барих</h3>
             <ul>
                 <li>Facebook</li>
@@ -120,4 +149,5 @@
         </section>
     </footer>
 </body>
+
 </html>
