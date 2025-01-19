@@ -1,4 +1,4 @@
-class PaginationControl extends HTMLElement {
+export class PaginationControl extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -88,12 +88,14 @@ class PaginationControl extends HTMLElement {
                     opacity: 0.5;
                     cursor: not-allowed;
                 }
+                button.dots {
+                    cursor: default;
+                }
             </style>
             <div class="pagination">
                 <button 
                     data-page="${this.currentPage - 1}"
                     ${this.currentPage <= 1 ? 'disabled' : ''}
-                    aria-label="Previous page"
                 >
                     ←
                 </button>
@@ -101,7 +103,6 @@ class PaginationControl extends HTMLElement {
                 <button 
                     data-page="${this.currentPage + 1}"
                     ${this.currentPage >= this.totalPages ? 'disabled' : ''}
-                    aria-label="Next page"
                 >
                     →
                 </button>
@@ -153,5 +154,3 @@ class PaginationControl extends HTMLElement {
         return buttons;
     }
 }
-
-window.customElements.define('pagination-controls', PaginationControl);

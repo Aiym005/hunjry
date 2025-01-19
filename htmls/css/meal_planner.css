@@ -1,0 +1,54 @@
+.planner-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(7, 1fr);
+    gap: 1px;
+    background: #fff;
+    padding: 20px;
+    margin: 20px;
+}
+
+.time-slot, .day-header {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+}
+
+.meal-cell {
+    min-height: 80px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background: white;
+}
+
+.meal-cell.dragover {
+    background: #f0f0f0;
+    border: 2px dashed #666;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.search-result-item {
+    padding: 10px;
+    cursor: move;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result-item:hover {
+    background: #f5f5f5;
+}
+
+.search-result-item.dragging {
+    opacity: 0.5;
+} 

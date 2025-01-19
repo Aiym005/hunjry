@@ -1,4 +1,4 @@
-class FilterButton extends HTMLElement {
+export class FilterButton extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -19,7 +19,9 @@ class FilterButton extends HTMLElement {
 
     handleClick = () => {
         document.querySelectorAll('filter-btn').forEach(btn => {
-            btn.removeAttribute('active');
+            if (btn !== this) {
+                btn.removeAttribute('active');
+            }
         });
         
         this.setAttribute('active', '');
@@ -67,5 +69,3 @@ class FilterButton extends HTMLElement {
         }
     }
 }
-
-window.customElements.define('filter-btn', FilterButton);

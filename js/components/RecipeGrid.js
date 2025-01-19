@@ -1,4 +1,4 @@
-class RecipeGrid extends HTMLElement {
+export class RecipeGrid extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -6,24 +6,48 @@ class RecipeGrid extends HTMLElement {
         this.currentFilter = 'Бүгд';
         this.currentPage = 1;
         this.itemsPerPage = 6;
+        this.cachedRecipes = null;
     }
 
     async connectedCallback() {
+        this.renderLoading();
         await this.loadRecipes();
         this.render();
         this.addEventListener('filter-changed', this.handleFilterChange);
         this.addEventListener('page-change', this.handlePageChange);
     }
 
+    renderLoading() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                .loading {
+                    text-align: center;
+                    padding: 2rem;
+                    font-size: 1.2rem;
+                    color: #666;
+                }
+            </style>
+            <div class="loading">Жорууд ачаалж байна...</div>
+        `;
+    }
+
     async loadRecipes() {
+        if (this.cachedRecipes) {
+            this.recipes = this.cachedRecipes;
+            return;
+        }
+
         try {
             const response = await fetch('/json/recipes.json');
             const data = await response.json();
             this.recipes = data.recipes;
+            this.cachedRecipes = data.recipes;
             this.updatePagination();
-            this.render();
         } catch (error) {
             console.error('Error loading recipes:', error);
+            this.shadowRoot.innerHTML = `
+                <div class="error">Жоруудыг ачаалахад алдаа гарлаа. Дахин оролдоно уу.</div>
+            `;
         }
     }
 
@@ -38,27 +62,30 @@ class RecipeGrid extends HTMLElement {
         const newPage = event.detail.page;
         if (newPage !== this.currentPage) {
             this.currentPage = newPage;
-            this.updatePagination();
             this.render();
         }
     }
 
     getFilteredRecipes() {
-        return this.recipes.filter(recipe => {
-            if (this.currentFilter === 'Бүгд') return true;
-            return recipe.mealType.includes(this.currentFilter);
-        });
+        if (this.currentFilter === 'Бүгд') return this.recipes;
+        return this.recipes.filter(recipe => 
+            recipe.mealType.some(type => type.trim() === this.currentFilter)
+        );
     }
 
     updatePagination() {
         const filteredCount = this.getFilteredRecipes().length;
-        const totalPages = Math.ceil(filteredCount / this.itemsPerPage);
+        this.totalPages = Math.ceil(filteredCount / this.itemsPerPage);
+        
+        if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages;
+        }
         
         const paginationEvent = new CustomEvent('update-pagination', {
             bubbles: true,
             composed: true,
             detail: { 
-                totalPages,
+                totalPages: this.totalPages,
                 currentPage: this.currentPage 
             }
         });
@@ -116,5 +143,3 @@ class RecipeGrid extends HTMLElement {
         `;
     }
 }
-
-window.customElements.define('recipe-grid', RecipeGrid);
