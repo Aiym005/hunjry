@@ -13,9 +13,22 @@ export class RecipeGrid extends HTMLElement {
         this.renderLoading();
         await this.loadRecipes();
         this.render();
-        this.addEventListener('filter-changed', this.handleFilterChange);
-        this.addEventListener('page-change', this.handlePageChange);
+        
+        this.addEventListener('filter-changed', (event) => {
+            this.currentFilter = event.detail.filter;
+            this.currentPage = 1; 
+            this.updatePagination();
+            this.render();
+        });
+    
+        this.addEventListener('page-change', (event) => {
+            if (event.detail.page !== this.currentPage) {
+                this.currentPage = event.detail.page;
+                this.render();
+            }
+        });
     }
+    
 
     renderLoading() {
         this.shadowRoot.innerHTML = `
@@ -68,29 +81,30 @@ export class RecipeGrid extends HTMLElement {
 
     getFilteredRecipes() {
         if (this.currentFilter === 'Бүгд') return this.recipes;
-        return this.recipes.filter(recipe => 
-            recipe.mealType.some(type => type.trim() === this.currentFilter)
-        );
-    }
+    
+        return this.recipes.filter(recipe => {
+            const mealTypes = Array.isArray(recipe.mealType) ? recipe.mealType : [recipe.mealType];
+            return mealTypes.some(type => type.trim() === this.currentFilter);
+        });
+    }    
 
     updatePagination() {
         const filteredCount = this.getFilteredRecipes().length;
-        this.totalPages = Math.ceil(filteredCount / this.itemsPerPage);
-        
+        this.totalPages = Math.max(1, Math.ceil(filteredCount / this.itemsPerPage));
+    
         if (this.currentPage > this.totalPages) {
             this.currentPage = this.totalPages;
         }
-        
-        const paginationEvent = new CustomEvent('update-pagination', {
+    
+        this.dispatchEvent(new CustomEvent('update-pagination', {
             bubbles: true,
             composed: true,
             detail: { 
                 totalPages: this.totalPages,
-                currentPage: this.currentPage 
+                currentPage: this.currentPage
             }
-        });
-        this.dispatchEvent(paginationEvent);
-    }
+        }));
+    }    
 
     getPaginatedRecipes() {
         const filtered = this.getFilteredRecipes();

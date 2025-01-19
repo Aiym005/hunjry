@@ -1,14 +1,18 @@
 import SearchBar from './components/SearchBar.js';
 import PlannerGrid from './components/PlannerGrid.js';
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    const searchContainer = document.querySelector('.search-container');
+    if (searchContainer) {
+        const searchBar = new SearchBar();
+        searchContainer.innerHTML = searchBar.render();
+        await searchBar.fetchRecipes(); 
+        searchBar.init();
+    }
     const mainContent = document.querySelector('main');
-    
-    const searchBar = new SearchBar();
-    mainContent.innerHTML = searchBar.render();
-    searchBar.init();
-
-    const plannerGrid = new PlannerGrid();
-    mainContent.innerHTML += plannerGrid.render();
-    plannerGrid.init();
+    if (mainContent) {
+        const plannerGrid = new PlannerGrid();
+        mainContent.innerHTML = plannerGrid.render();
+        plannerGrid.init();
+    }
 }); 

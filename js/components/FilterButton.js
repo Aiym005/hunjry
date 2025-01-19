@@ -23,15 +23,15 @@ export class FilterButton extends HTMLElement {
                 btn.removeAttribute('active');
             }
         });
-        
-        this.setAttribute('active', '');
-        
+    
+        this.setAttribute('active', '');  // ✅ Correctly mark as active
+    
         this.dispatchEvent(new CustomEvent('filter-changed', {
             bubbles: true,
             composed: true,
             detail: { filter: this.getAttribute('filter') }
         }));
-    }
+    }        
 
     render() {
         this.shadowRoot.innerHTML = `
