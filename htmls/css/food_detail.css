@@ -99,14 +99,14 @@ div>button img {
     transition: filter 0.3s ease;
 }
 
-.heart-button.active {
+/* .heart-button.active {
     background-color: #ff4d6d;
     border-color: #ff4d6d;
 }
 
 .heart-button.active img {
     filter: brightness(0) invert(1);
-}
+} */
 
 div>button:active {
     transform: scale(0.95);

@@ -1,45 +1,37 @@
 document.addEventListener('DOMContentLoaded', async () => {
   let recipesData = [];
-
   try {
-      // Fetch recipes data from a local JSON file
-      const response = await fetch('/json/recipes.json'); // Adjust the path if needed
+      const response = await fetch('/json/recipes.json');
       if (!response.ok) {
           throw new Error(`HTTP error status: ${response.status}`);
       }
       const data = await response.json();
-
-      if (data && data.recipes) {
+      if (data && data.recipes)
           recipesData = data.recipes;
-      } else {
+      else {
           console.error('Recipes data is empty or invalid');
           displayErrorMessage('Жорын мэдээлэл хоосон эсвэл буруу байна.');
           return;
       }
-
       const urlParams = new URLSearchParams(window.location.search);
       const filter = parseInt(urlParams.get('id'));
-
       if (!filter || isNaN(filter)) {
           console.error('Invalid or missing recipe ID');
           displayErrorMessage('Жорын ID алга эсвэл буруу байна.');
           return;
       }
-
-      // Call functions to update the UI
       updateImage(filter, recipesData);
       updateIngredient(filter, recipesData);
       setupSuggestedFood(filter, recipesData);
       setTimeout(() => setupLikeButton(filter), 0);
       setupDropdown(recipesData);
       setupComments(filter);
-  } catch (error) {
+  } 
+  catch (error) {
       console.error('Error loading recipes:', error.message);
       displayErrorMessage('Жорын мэдээлэл ачаалахад алдаа гарлаа. Та хуудсаа дахин ачаална уу.');
   }
 });
-
-// Function to display error messages on the page
 function displayErrorMessage(message) {
   const main = document.querySelector('main');
   if (main) {
@@ -53,25 +45,23 @@ function displayErrorMessage(message) {
 
 function updateImage(filter, recipesData) {
   const recipeImage = document.querySelector('.recipe-image');
-  if (!recipeImage) return;
-
+  if (!recipeImage) 
+    return;
   recipeImage.innerHTML = '';
-
   const recipe = recipesData.find(recipe => recipe.id === filter);
-
   if (recipe) {
       recipeImage.innerHTML = `
           <img src="${recipe.image}" alt="${recipe.name}">
           <h3>${recipe.name}</h3>
           <article class="icon">
-              <section class="icons-container">
+              <div class="icons-container">
                   <button class="heart-button">
                       <img src="/iconpic/heart.png" alt="like">
                   </button>
                   <button class="comment-button">
                       <img src="/iconpic/comment.png" alt="comment">
                   </button>
-              </section>
+              </div>
               <nav class="rating-container">
                   ${recipe.rating ? '<img src="/iconpic/pizza.png" alt="rating">'.repeat(recipe.rating) : 'N/A'}
               </nav>
@@ -81,7 +71,8 @@ function updateImage(filter, recipesData) {
               <section class="suggested-food"></section>
           </section>
       `;
-  } else {
+  } 
+  else {
       recipeImage.innerHTML = `<p>Жор олдсонгүй.</p>`;
   }
 }
@@ -127,12 +118,10 @@ function setupDropdown(recipesData) {
 
 function updateIngredient(filter, recipesData) {
   const recipeContent = document.querySelector('.recipe-content');
-  if (!recipeContent) return;
-
+  if (!recipeContent) 
+    return;
   recipeContent.innerHTML = '';
-
   const recipe = recipesData.find(recipe => recipe.id === filter);
-
   if (recipe) {
       recipeContent.innerHTML = `
           <section class="ingredients">
@@ -146,18 +135,50 @@ function updateIngredient(filter, recipesData) {
               <p>${recipe.instructions ? recipe.instructions.join('<br>') : 'No instructions available'}</p>
           </section>
       `;
-
       const url = new URL(window.location);
       url.searchParams.set('id', recipe.id);
       window.history.pushState({}, '', url);
-  } else {
+  } 
+  else {
       recipeContent.innerHTML = `<p>Жорын дэлгэрэнгүй мэдээлэл олдсонгүй.</p>`;
   }
 }
 
-function setupSuggestedFood(filter, recipesData) {
-  console.log(`Setting up suggested foods for recipe ID: ${filter}`);
-  // Add your implementation for suggested foods
+function setupSuggestedFood(id , recipesData) {
+    const sugFoods = document.querySelector('.suggested-foods');
+    sugFoods.innerHTML = ''; 
+    
+    const currentRecipe = recipesData.find(recipe => recipe.id === id);
+    if (!currentRecipe) 
+        return;
+
+    const filteredData = recipesData.filter(recipe => 
+        recipe.id !== id && 
+        recipe.mealType.some(type => 
+            currentRecipe.mealType.includes(type)
+        )
+    );
+
+    const suggestions = filteredData
+        .sort(() => 0.5 - Math.random()) 
+        .slice(0, 2);
+
+    if (suggestions.length === 0) {
+        sugFoods.innerHTML = `<p>Санал болгох хоол олдсонгүй.</p>`;
+        return;
+    }
+
+    suggestions.forEach(recipe => {
+        const sugFood = document.createElement('section');
+        sugFood.className = 'suggested-food';
+        sugFood.innerHTML = `
+            <a href="/htmls/food_detail.html?id=${recipe.id}">
+                <img src="${recipe.image}" alt="${recipe.name}">
+                <h3>${recipe.name}</h3>
+            </a>
+        `;
+        sugFoods.appendChild(sugFood);
+    });
 }
 
 function setupLikeButton(filter) {
