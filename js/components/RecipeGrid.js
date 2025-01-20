@@ -1,4 +1,4 @@
-class RecipeGrid extends HTMLElement {
+export class RecipeGrid extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -6,24 +6,61 @@ class RecipeGrid extends HTMLElement {
         this.currentFilter = 'Бүгд';
         this.currentPage = 1;
         this.itemsPerPage = 6;
+        this.cachedRecipes = null;
     }
 
     async connectedCallback() {
+        this.renderLoading();
         await this.loadRecipes();
         this.render();
-        this.addEventListener('filter-changed', this.handleFilterChange);
-        this.addEventListener('page-change', this.handlePageChange);
+        
+        this.addEventListener('filter-changed', (event) => {
+            this.currentFilter = event.detail.filter;
+            this.currentPage = 1; 
+            this.updatePagination();
+            this.render();
+        });
+    
+        this.addEventListener('page-change', (event) => {
+            if (event.detail.page !== this.currentPage) {
+                this.currentPage = event.detail.page;
+                this.render();
+            }
+        });
+    }
+    
+
+    renderLoading() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                .loading {
+                    text-align: center;
+                    padding: 2rem;
+                    font-size: 1.2rem;
+                    color: #666;
+                }
+            </style>
+            <div class="loading">Жорууд ачаалж байна...</div>
+        `;
     }
 
     async loadRecipes() {
+        if (this.cachedRecipes) {
+            this.recipes = this.cachedRecipes;
+            return;
+        }
+
         try {
             const response = await fetch('/json/recipes.json');
             const data = await response.json();
             this.recipes = data.recipes;
+            this.cachedRecipes = data.recipes;
             this.updatePagination();
-            this.render();
         } catch (error) {
             console.error('Error loading recipes:', error);
+            this.shadowRoot.innerHTML = `
+                <div class="error">Жоруудыг ачаалахад алдаа гарлаа. Дахин оролдоно уу.</div>
+            `;
         }
     }
 
@@ -38,32 +75,36 @@ class RecipeGrid extends HTMLElement {
         const newPage = event.detail.page;
         if (newPage !== this.currentPage) {
             this.currentPage = newPage;
-            this.updatePagination();
             this.render();
         }
     }
 
     getFilteredRecipes() {
+        if (this.currentFilter === 'Бүгд') return this.recipes;
+    
         return this.recipes.filter(recipe => {
-            if (this.currentFilter === 'Бүгд') return true;
-            return recipe.mealType.includes(this.currentFilter);
+            const mealTypes = Array.isArray(recipe.mealType) ? recipe.mealType : [recipe.mealType];
+            return mealTypes.some(type => type.trim() === this.currentFilter);
         });
-    }
+    }    
 
     updatePagination() {
         const filteredCount = this.getFilteredRecipes().length;
-        const totalPages = Math.ceil(filteredCount / this.itemsPerPage);
-        
-        const paginationEvent = new CustomEvent('update-pagination', {
+        this.totalPages = Math.max(1, Math.ceil(filteredCount / this.itemsPerPage));
+    
+        if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages;
+        }
+    
+        this.dispatchEvent(new CustomEvent('update-pagination', {
             bubbles: true,
             composed: true,
             detail: { 
-                totalPages,
-                currentPage: this.currentPage 
+                totalPages: this.totalPages,
+                currentPage: this.currentPage
             }
-        });
-        this.dispatchEvent(paginationEvent);
-    }
+        }));
+    }    
 
     getPaginatedRecipes() {
         const filtered = this.getFilteredRecipes();
@@ -116,5 +157,3 @@ class RecipeGrid extends HTMLElement {
         `;
     }
 }
-
-window.customElements.define('recipe-grid', RecipeGrid);

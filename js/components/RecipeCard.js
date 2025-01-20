@@ -1,4 +1,4 @@
-export default class RecipeCard extends HTMLElement {
+export class RecipeCard extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -45,6 +45,8 @@ export default class RecipeCard extends HTMLElement {
                     width: 100%;
                     height: 200px;
                     object-fit: cover;
+                    loading: lazy;
+                    will-change: transform;
                 }
                 .content {
                     padding: 16px;
@@ -78,7 +80,13 @@ export default class RecipeCard extends HTMLElement {
                 }
             </style>
             <article class="card">
-                <img src="${this.getAttribute('image')}" alt="${this.getAttribute('name')}">
+                <img 
+                    src="${this.getAttribute('image')}" 
+                    alt="${this.getAttribute('name')}"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="high"
+                >
                 <div class="content">
                     <h3>${this.getAttribute('name')}</h3>
                     <div class="meta">
@@ -96,5 +104,3 @@ export default class RecipeCard extends HTMLElement {
         `;
     }
 }
-
-window.customElements.define('recipe-card', RecipeCard);

@@ -1,4 +1,4 @@
-class PaginationControl extends HTMLElement {
+export class PaginationControl extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -28,7 +28,7 @@ class PaginationControl extends HTMLElement {
 
     handleClick = (e) => {
         if (!e.target.matches('button') || e.target.disabled) return;
-        
+
         const page = parseInt(e.target.dataset.page);
         if (!isNaN(page)) {
             this.handlePageClick(page);
@@ -43,7 +43,7 @@ class PaginationControl extends HTMLElement {
 
     handlePageClick(page) {
         if (page === this.currentPage || page < 1 || page > this.totalPages) return;
-        
+
         this.currentPage = page;
         this.dispatchEvent(new CustomEvent('page-change', {
             bubbles: true,
@@ -88,12 +88,14 @@ class PaginationControl extends HTMLElement {
                     opacity: 0.5;
                     cursor: not-allowed;
                 }
+                button.dots {
+                    cursor: default;
+                }
             </style>
             <div class="pagination">
                 <button 
                     data-page="${this.currentPage - 1}"
                     ${this.currentPage <= 1 ? 'disabled' : ''}
-                    aria-label="Previous page"
                 >
                     ←
                 </button>
@@ -101,7 +103,6 @@ class PaginationControl extends HTMLElement {
                 <button 
                     data-page="${this.currentPage + 1}"
                     ${this.currentPage >= this.totalPages ? 'disabled' : ''}
-                    aria-label="Next page"
                 >
                     →
                 </button>
@@ -113,15 +114,14 @@ class PaginationControl extends HTMLElement {
         let buttons = '';
         const maxVisiblePages = 5;
         const halfVisible = Math.floor(maxVisiblePages / 2);
-        
+
         let startPage = Math.max(1, this.currentPage - halfVisible);
         let endPage = Math.min(this.totalPages, startPage + maxVisiblePages - 1);
-        
+
         if (endPage - startPage + 1 < maxVisiblePages) {
             startPage = Math.max(1, endPage - maxVisiblePages + 1);
         }
 
-        // Always show first page
         if (startPage > 1) {
             buttons += `
                 <button data-page="1">1</button>
@@ -129,7 +129,6 @@ class PaginationControl extends HTMLElement {
             `;
         }
 
-        // Generate numbered buttons
         for (let i = startPage; i <= endPage; i++) {
             buttons += `
                 <button 
@@ -141,8 +140,6 @@ class PaginationControl extends HTMLElement {
                 </button>
             `;
         }
-
-        // Always show last page
         if (endPage < this.totalPages) {
             buttons += `
                 ${endPage < this.totalPages - 1 ? '<button disabled>...</button>' : ''}
@@ -153,5 +150,3 @@ class PaginationControl extends HTMLElement {
         return buttons;
     }
 }
-
-window.customElements.define('pagination-controls', PaginationControl);
