@@ -51,6 +51,7 @@ header nav img:hover {
     position: relative;
     color: #fff;
     background: url('/foodpic/steak.jpg') no-repeat center center/cover;
+    
 }
     .hero::before {
         content: "";
@@ -98,6 +99,10 @@ header nav img:hover {
     width: 150x;
     font-size: large;
     font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+   
     
 }
 
