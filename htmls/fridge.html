@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хөргөгч | Hunjry App</title>
+    <link rel="stylesheet" href="/htmls/css/fridge.css">
+    <script type="module" src="/js/fridge.js" defer></script>
+</head>
+<body>
+    <header>
+        <a class="logo" href="/htmls/nuur.html" aria-label="Нүүр хуудас">
+            <img src="/iconpic/logo2.png" 
+                 alt="Hungry App Logo" 
+                 width="50" 
+                 height="45"
+                 loading="eager"
+                 fetchpriority="high">
+        </a>
+        <div class="navbar">
+        <nav>
+            <a href="nuur.html">
+                <img src="/iconpic/log-out.png" alt="log-out pic">
+            </a>
+            <a href="fridge.html">
+                <img src="/iconpic/fridge.png" alt="fridge pic">
+            </a>
+            <a href="meal_planner.html">
+                <img src="/iconpic/plan.png" alt="plan pic">
+            </a>
+            <a href="food_info.html">
+                <img src="/iconpic/food.png" alt="food info pic">
+            </a>
+            <a href="user_profile.html">
+                <img src="/iconpic/profile.png" alt="user's profile pic">
+            </a>
+        </nav>
+        </div>
+    </header>
+    <main class="fridge-container">
+        <h1>Таны хөргөгчинд юу юу байна вэ?</h1>
+        <input type="text" id="search-bar" placeholder="Орц хайх...">
+
+        <div class="categories">
+            <div class="category">
+                <h2>Ногоо</h2>
+                <label><input type="checkbox" value="onion"> Сонгино</label>
+                <label><input type="checkbox" value="garlic"> Сармис</label>
+                <label><input type="checkbox" value="carrot"> Лууван</label>
+            </div>
+            <div class="category">
+                <h2>Мах</h2>
+                <label><input type="checkbox" value="chicken"> Тахиа</label>
+                <label><input type="checkbox" value="beef"> Үхрийн мах</label>
+            </div>
+            <div class="category">
+                <h2>Сүүн бүтээгдэхүүн</h2>
+                <label><input type="checkbox" value="milk"> Сүү</label>
+                <label><input type="checkbox" value="butter"> Масло</label>
+                <label><input type="checkbox" value="cheese"> Бяслаг</label>
+            </div>
+        </div>
+
+        <button id="find-recipes">Жор хайх</button>
+
+        <div class="recipes">
+            <h2>Боломжит жорууд:</h2>
+            <ul id="recipe-list"></ul>
+        </div>
+    </main>
+    
+</body>
+</html>
