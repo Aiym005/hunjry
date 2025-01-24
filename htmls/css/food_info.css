@@ -39,12 +39,71 @@ header nav img:hover {
     opacity: 1;
 }
 
+.search-container {
+    position: relative;
+    width: 40%;
+}
+
 #search-bar {
+    width: 100%;
     padding: 8px 16px;
     border: 1px solid #ddd;
     border-radius: 20px;
-    width: 900px;
     font-size: 20px;
+    outline: none;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+    display: none;
+}
+
+.search-result-item {
+    padding: 10px;
+    cursor: move;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result-item:hover {
+    background: #f5f5f5;
+}
+
+.recipe-search-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.recipe-search-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.recipe-info {
+    flex: 1;
+}
+
+.recipe-name {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.recipe-category {
+    font-size: 12px;
+    color: #666;
 }
 
 .filter-btns {
