@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/user_profile.css">
+    <script src="app1.js" defer></script>
     <title>Hungry App - Хэрэглэгчийн хэсэг | Таалагдсан жор</title>
     <!-- <script>
         const products=[
@@ -45,19 +46,19 @@
         </section>
 
         <nav class="icons" aria-label="Үндсэн цэс">
-            <a href="nuur.html" aria-label="Гарах">
+            <a href="/htmls/nuur.html" aria-label="Гарах">
                 <img src="/iconpic/log-out.png" alt="Гарах" width="30" height="30" loading="lazy">
             </a>
-            <a href="fridge.html" aria-label="Хөргөгч">
+            <a href="/htmls/fridge.html" aria-label="Хөргөгч">
                 <img src="/iconpic/fridge.png" alt="Хөргөгч" width="30" height="30" loading="lazy">
             </a>
-            <a href="meal_planner.html" aria-label="Төлөвлөгөө">
+            <a href="/htmls/meal_planner.html" aria-label="Төлөвлөгөө">
                 <img src="/iconpic/plan.png" alt="Төлөвлөгөө" width="30" height="30" loading="lazy">
             </a>
-            <a href="food_info.html" aria-label="Хоол">
+            <a href="/htmls/food_info.html" aria-label="Хоол">
                 <img src="/iconpic/food.png" alt="Хоол" width="30" height="30" loading="lazy">
             </a>
-            <a href="user_profile.html" aria-label="Профайл">
+            <a href="/htmls/user_profile.html" aria-label="Профайл">
                 <img src="/iconpic/profile.png" alt="Профайл" width="30" height="30" loading="lazy">
             </a>
         </nav>
@@ -88,30 +89,7 @@
                 <h2>Надад таалагдсан хоол</h2>
                 <div class="favorites-grid">
                     <article class="recipe-card">
-                        <a href="food_detail.html" aria-label="Пармежан тахианы махны жор">
-                            <img src="/foodpic/image.webp" 
-                                 alt="Пармежан тахианы мах" 
-                                 width="200" 
-                                 height="150"
-                                 loading="lazy">
-                            <h3>Пармежан тахианы мах</h3>
-                        </a>
-                        <a href="food_detail.html" aria-label="Пармежан тахианы махны жор">
-                            <img src="/foodpic/image.webp" 
-                                 alt="Пармежан тахианы мах" 
-                                 width="200" 
-                                 height="150"
-                                 loading="lazy">
-                            <h3>Пармежан тахианы мах</h3>
-                        </a>
-                        <a href="food_detail.html" aria-label="Пармежан тахианы махны жор">
-                            <img src="/foodpic/image.webp" 
-                                 alt="Пармежан тахианы мах" 
-                                 width="200" 
-                                 height="150"
-                                 loading="lazy">
-                            <h3>Пармежан тахианы мах</h3>
-                        </a>
+                        <food-item></food-item>
                     </article>
                 </div>
             </section>

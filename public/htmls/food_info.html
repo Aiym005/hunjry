@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Төлөвлөгөө</title>
-    <link rel="stylesheet" href="/htmls/css/meal_planner.css">
-    <script type="module" src="/js/meal_planner.js" defer></script>
+    <meta name="description" content="Монгол болон гадаад орны амттай хоолны жор. Өглөөний цай, өдрийн хоол, оройн хоол, амттан, ундаа, зууш.">
+    <meta name="keywords" content="хоолны жор, монгол хоол, гэрийн хоол, амттан, ундаа">
+    <title>Хоолны жор | Hungry-App</title>
+    <link rel="stylesheet" href="/htmls/css/food_info.css">
+<!--     
+    <script type="module" src="/js/components/RecipeCard.js"></script>
+    <script type="module" src="/js/components/FilterButton.js"></script>
+    <script type="module" src="/js/components/RecipeGrid.js"></script>
+    <script type="module" src="/js/components/PaginationControl.js"></script>
+   -->
+    <script type="module" src="/js/app.js"></script>
 </head>
 
 <body>
@@ -16,27 +24,36 @@
         </a>
         <section class="search-container"></section>
         <nav>
-            <a href="nuur.html">
+            <a href="/htmls/nuur.html">
                 <img src="/iconpic/log-out.png" alt="log-out pic">
             </a>
-            <a href="fridge.html">
+            <a href="/htmls/fridge.html">
                 <img src="/iconpic/fridge.png" alt="fridge pic">
             </a>
-            <a href="meal_planner.html">
+            <a href="/htmls/meal_planner.html">
                 <img src="/iconpic/plan.png" alt="plan pic">
             </a>
-            <a href="food_info.html">
+            <a href="/htmls/food_info.html">
                 <img src="/iconpic/food.png" alt="food info pic">
             </a>
-            <a href="user_profile.html">
+            <a href="/htmls/user_profile.html">
                 <img src="/iconpic/profile.png" alt="user's profile pic">
             </a>
         </nav>
     </header>
-
     <main>
+        <nav class="filter-btns">
+            <filter-btn filter="Бүгд">Бүгд</filter-btn>
+            <filter-btn filter="Өглөөний цай">Өглөөний цай</filter-btn>
+            <filter-btn filter="Өдрийн хоол">Өдрийн хоол</filter-btn>
+            <filter-btn filter="Оройн хоол">Оройн хоол</filter-btn>
+            <filter-btn filter="Амттан">Амттан</filter-btn>
+            <filter-btn filter="Уух зүйл">Уух зүйл</filter-btn>
+            <filter-btn filter="Зууш">Зууш</filter-btn>
+        </nav>
+        <recipe-grid></recipe-grid>
+        <pagination-controls></pagination-controls>
     </main>
-
     <footer>
         <section>
             <h3>Жор төрөл</h3>

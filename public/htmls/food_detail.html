@@ -9,6 +9,8 @@
     <title>Hungry App - Хоолны жорын дэлгэрэнгүй | Орц, найрлага, хийх дараалал</title>
     <link rel="stylesheet" href="css/food_detail.css">
     <script src="/js/Search.js" defer></script>
+    <script src="app1.js" defer></script>
+
     <!-- <script>
         class Recipe {
             constructor(name, image, ingredients, instructions) {
@@ -63,19 +65,19 @@
         </section>
 
         <nav>
-            <a href="nuur.html">
+            <a href="/htmls/nuur.html">
                 <img src="/iconpic/log-out.png" alt="log-out pic">
             </a>
-            <a href="fridge.html">
+            <a href="/htmls/fridge.html">
                 <img src="/iconpic/fridge.png" alt="fridge pic">
             </a>
-            <a href="meal_planner.html">
+            <a href="/htmls/meal_planner.html">
                 <img src="/iconpic/plan.png" alt="plan pic">
             </a>
-            <a href="food_info.html">
+            <a href="/htmls/food_info.html">
                 <img src="/iconpic/food.png" alt="food info pic">
             </a>
-            <a href="user_profile.html">
+            <a href="/htmls/user_profile.html">
                 <img src="/iconpic/profile.png" alt="user's profile pic">
             </a>
         </nav>
@@ -94,9 +96,7 @@
                 <h3>Бяслагтай макарон</h3>
                 <div class="icon" role="group" aria-label="Үнэлгээ болон сэтгэгдэл">
                     <div class="icons-container">
-                        <button type="button" aria-label="Таалагдлаа" aria-pressed="false">
-                            <img src="/iconpic/heart.png" alt="" aria-hidden="true">
-                        </button>
+                        <like-button></like-button>
                         <button type="button" aria-label="Сэтгэгдэл бичих" aria-expanded="false">
                             <img src="/iconpic/comment.png" alt="" aria-hidden="true">
                         </button>
