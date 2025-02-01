@@ -1,56 +1,49 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  let recipesData = [];
-  try {
-      const response = await fetch('/json/recipes.json');
+    let recipesData = [];
+    try {
+      // Fetch recipes from the backend API
+      const response = await fetch('/api/recipes');
       if (!response.ok) {
-          throw new Error(`HTTP error status: ${response.status}`);
+        throw new Error(`HTTP error status: ${response.status}`);
       }
       const data = await response.json();
-      if (data && data.recipes)
-          recipesData = data.recipes;
-      else {
-          console.error('Recipes data is empty or invalid');
-          displayErrorMessage('Жорын мэдээлэл хоосон эсвэл буруу байна.');
-          return;
+      if (data && data.length > 0) {
+        recipesData = data;
+      } else {
+        console.error('Recipes data is empty or invalid');
+        displayErrorMessage('Жорын мэдээлэл хоосон эсвэл буруу байна.');
+        return;
       }
+  
       const urlParams = new URLSearchParams(window.location.search);
       const filter = parseInt(urlParams.get('id'));
       if (!filter || isNaN(filter)) {
-          console.error('Invalid or missing recipe ID');
-          displayErrorMessage('Жорын ID алга эсвэл буруу байна.');
-          return;
+        console.error('Invalid or missing recipe ID');
+        displayErrorMessage('Жорын ID алга эсвэл буруу байна.');
+        return;
       }
+  
       updateImage(filter, recipesData);
       updateIngredient(filter, recipesData);
       setupSuggestedFood(filter, recipesData);
       setTimeout(() => setupLikeButton(filter), 0);
       setupDropdown(recipesData);
       setupComments(filter);
-  } 
-  catch (error) {
+    } catch (error) {
       console.error('Error loading recipes:', error.message);
       displayErrorMessage('Жорын мэдээлэл ачаалахад алдаа гарлаа. Та хуудсаа дахин ачаална уу.');
-  }
-});
-function displayErrorMessage(message) {
-  const main = document.querySelector('main');
-  if (main) {
-      main.innerHTML = `
-          <div class="error-message">
-              <p>${message}</p>
-          </div>
-      `;
-  }
-}
+    }
+  });
+  
 
 function updateImage(filter, recipesData) {
-  const recipeImage = document.querySelector('.recipe-image');
-  if (!recipeImage) 
-    return;
-  recipeImage.innerHTML = '';
-  const recipe = recipesData.find(recipe => recipe.id === filter);
-  if (recipe) {
-      recipeImage.innerHTML = `
+    const recipeImage = document.querySelector('.recipe-image');
+    if (!recipeImage)
+        return;
+    recipeImage.innerHTML = '';
+    const recipe = recipesData.find(recipe => recipe.id === filter);
+    if (recipe) {
+        recipeImage.innerHTML = `
           <img src="${recipe.image}" alt="${recipe.name}">
           <h3>${recipe.name}</h3>
           <article class="icon">
@@ -71,59 +64,59 @@ function updateImage(filter, recipesData) {
               <section class="suggested-food"></section>
           </section>
       `;
-  } 
-  else {
-      recipeImage.innerHTML = `<p>Жор олдсонгүй.</p>`;
-  }
+    }
+    else {
+        recipeImage.innerHTML = `<p>Жор олдсонгүй.</p>`;
+    }
 }
 
 function setupDropdown(recipesData) {
-  const searchBar = document.querySelector('.search-bar');
-  const dropdownContainer = document.querySelector('.dropdown-container');
-  const searchbar = document.querySelector('#search-bar');
+    const searchBar = document.querySelector('.search-bar');
+    const dropdownContainer = document.querySelector('.dropdown-container');
+    const searchbar = document.querySelector('#search-bar');
 
-  if (!dropdownContainer || !searchbar) return;
+    if (!dropdownContainer || !searchbar) return;
 
-  dropdownContainer.innerHTML = '';
-  dropdownContainer.style.display = 'none';
+    dropdownContainer.innerHTML = '';
+    dropdownContainer.style.display = 'none';
 
-  searchbar.addEventListener('input', (e) => {
-      const query = e.target.value.trim().toLowerCase();
-      dropdownContainer.innerHTML = '';
+    searchbar.addEventListener('input', (e) => {
+        const query = e.target.value.trim().toLowerCase();
+        dropdownContainer.innerHTML = '';
 
-      if (query) {
-          const filteredRecipes = recipesData.filter(recipe =>
-              recipe.name.toLowerCase().includes(query)
-          );
+        if (query) {
+            const filteredRecipes = recipesData.filter(recipe =>
+                recipe.name.toLowerCase().includes(query)
+            );
 
-          if (filteredRecipes.length > 0) {
-              filteredRecipes.forEach(recipe => {
-                  const foodItem = document.createElement('section');
-                  foodItem.className = 'food-name';
-                  foodItem.innerHTML = `
+            if (filteredRecipes.length > 0) {
+                filteredRecipes.forEach(recipe => {
+                    const foodItem = document.createElement('section');
+                    foodItem.className = 'food-name';
+                    foodItem.innerHTML = `
                       <img src="${recipe.image}" alt="${recipe.name}">
                       <a href='/htmls/food_detail.html?id=${recipe.id}'>${recipe.name}</a>
                   `;
-                  dropdownContainer.appendChild(foodItem);
-              });
-              dropdownContainer.style.display = 'block';
-          } else {
-              dropdownContainer.style.display = 'none';
-          }
-      } else {
-          dropdownContainer.style.display = 'none';
-      }
-  });
+                    dropdownContainer.appendChild(foodItem);
+                });
+                dropdownContainer.style.display = 'block';
+            } else {
+                dropdownContainer.style.display = 'none';
+            }
+        } else {
+            dropdownContainer.style.display = 'none';
+        }
+    });
 }
 
 function updateIngredient(filter, recipesData) {
-  const recipeContent = document.querySelector('.recipe-content');
-  if (!recipeContent) 
-    return;
-  recipeContent.innerHTML = '';
-  const recipe = recipesData.find(recipe => recipe.id === filter);
-  if (recipe) {
-      recipeContent.innerHTML = `
+    const recipeContent = document.querySelector('.recipe-content');
+    if (!recipeContent)
+        return;
+    recipeContent.innerHTML = '';
+    const recipe = recipesData.find(recipe => recipe.id === filter);
+    if (recipe) {
+        recipeContent.innerHTML = `
           <section class="ingredients">
               <h2>Орц</h2>
               <ol>
@@ -135,32 +128,32 @@ function updateIngredient(filter, recipesData) {
               <p>${recipe.instructions ? recipe.instructions.join('<br>') : 'No instructions available'}</p>
           </section>
       `;
-      const url = new URL(window.location);
-      url.searchParams.set('id', recipe.id);
-      window.history.pushState({}, '', url);
-  } 
-  else {
-      recipeContent.innerHTML = `<p>Жорын дэлгэрэнгүй мэдээлэл олдсонгүй.</p>`;
-  }
+        const url = new URL(window.location);
+        url.searchParams.set('id', recipe.id);
+        window.history.pushState({}, '', url);
+    }
+    else {
+        recipeContent.innerHTML = `<p>Жорын дэлгэрэнгүй мэдээлэл олдсонгүй.</p>`;
+    }
 }
 
-function setupSuggestedFood(id , recipesData) {
+function setupSuggestedFood(id, recipesData) {
     const sugFoods = document.querySelector('.suggested-foods');
-    sugFoods.innerHTML = ''; 
-    
+    sugFoods.innerHTML = '';
+
     const currentRecipe = recipesData.find(recipe => recipe.id === id);
-    if (!currentRecipe) 
+    if (!currentRecipe)
         return;
 
-    const filteredData = recipesData.filter(recipe => 
-        recipe.id !== id && 
-        recipe.mealType.some(type => 
+    const filteredData = recipesData.filter(recipe =>
+        recipe.id !== id &&
+        recipe.mealType.some(type =>
             currentRecipe.mealType.includes(type)
         )
     );
 
     const suggestions = filteredData
-        .sort(() => 0.5 - Math.random()) 
+        .sort(() => 0.5 - Math.random())
         .slice(0, 2);
 
     if (suggestions.length === 0) {
@@ -182,11 +175,11 @@ function setupSuggestedFood(id , recipesData) {
 }
 
 function setupLikeButton(filter) {
-  console.log(`Setting up like button for recipe ID: ${filter}`);
-  // Add your implementation for like button
+    console.log(`Setting up like button for recipe ID: ${filter}`);
+    // Add your implementation for like button
 }
 
 function setupComments(filter) {
-  console.log(`Setting up comments for recipe ID: ${filter}`);
-  // Add your implementation for comments
+    console.log(`Setting up comments for recipe ID: ${filter}`);
+    // Add your implementation for comments
 }
