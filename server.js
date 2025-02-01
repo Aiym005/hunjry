@@ -13,8 +13,8 @@ const client = new Client({
 });
 
 client.connect();
-
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
 app.get('/api/recipes', async (req, res) => {
   try {
