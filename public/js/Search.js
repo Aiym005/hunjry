@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     let recipesData = [];
     try {
-      // Fetch recipes from the backend API
       const response = await fetch('/api/recipes');
       if (!response.ok) {
         throw new Error(`HTTP error status: ${response.status}`);
