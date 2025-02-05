@@ -280,6 +280,13 @@
       "reviewCount": 63,
       "mealType": [
         "Оройн хоол"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "mm",
+          "userId": 3
+        }
       ]
     },
     {
@@ -485,6 +492,13 @@
       "reviewCount": 5,
       "mealType": [
         "Оройн хоол"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "hhe",
+          "userId": 3
+        }
       ]
     },
     {

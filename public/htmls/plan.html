@@ -4,30 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hungry App - Хөргөгчний орц бүртгэл. Гэртээ байгаа орц, материалаараа хоол хийх жор хайх, орцоо бүртгэх.">
-    <meta name="keywords" content="жор, хоол, монгол хоол, хөргөгч, орц, хоолны орц, хоол хийх">
+    <meta name="description" content="Hungry App - 7 хоногийн хоолны төлөвлөгөө. Өглөө, өдөр, оройн хоолоо урьдчилан төлөвлөж, амжилттай хоол хийгээрэй.">
+    <meta name="keywords" content="жор, хоол, монгол хоол, хоолны төлөвлөгөө, 7 хоног, өглөөний хоол, өдрийн хоол, оройн хоол">
     <meta name="author" content="Hungry App Team">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph meta tags -->
-    <meta property="og:title" content="Hungry App - Хөргөгчний орц бүртгэл">
-    <meta property="og:description" content="Гэртээ байгаа орц, материалаараа хоол хийх жор хайх, орцоо бүртгэх систем">
+    <meta property="og:title" content="Hungry App - 7 хоногийн хоолны төлөвлөгөө">
+    <meta property="og:description" content="Hungry App - 7 хоногийн хоолны төлөвлөгөө. Өглөө, өдөр, оройн хоолоо урьдчилан төлөвлөж, амжилттай хоол хийгээрэй.">
     <meta property="og:image" content="/iconpic/logo.gif">
-    <meta property="og:url" content="http://localhost:3000/htmls/fridge.html">
+    <meta property="og:url" content="http://localhost:3000/htmls/plan.html">
     <meta name="twitter:card" content="summary_large_image">
     
     <!-- Preload critical assets -->
-    <link rel="preload" href="/css/fridge.css" as="style">
+    <link rel="preload" href="/css/plan.css" as="style">
     <link rel="preload" href="/iconpic/logo.gif" as="image" type="image/gif">
-    <link rel="canonical" href="http://localhost:3000/htmls/fridge.html" />
-    <link rel="alternate" href="http://localhost:3000/htmls/fridge.html" hreflang="mn" />
+    <link rel="canonical" href="http://localhost:3000/htmls/plan.html" />
+    <link rel="alternate" href="http://localhost:3000/htmls/plan.html" hreflang="mn" />
     
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#4CAF50">
-    <title>Hungry App - Хөргөгчний орц бүртгэл | Орцоороо хоол хийх</title>
-    <link rel="stylesheet" href="/css/fridge.css">
+    <title>Hungry App - 7 хоногийн хоолны төлөвлөгөө | Амжилттай хоол хийх нь</title>
+    <link rel="stylesheet" href="/css/plan.css">
     <script src="/register-sw.js" defer></script>
-    <script type="module" src="/Javascript/fridge.js" defer></script>
+    <script src="/Javascript/plan.js" defer></script>
 </head>
 
 <body>
@@ -58,11 +58,11 @@
                 <img src="/iconpic/log-out.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
                 <span class="visually-hidden">Гарах</span>
             </a>
-            <a href="fridge.html" aria-label="Хөргөгч рүү очих" aria-current="page">
+            <a href="fridge.html" aria-label="Хөргөгч рүү очих">
                 <img src="/iconpic/fridge.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
                 <span class="visually-hidden">Хөргөгч</span>
             </a>
-            <a href="plan.html" aria-label="Төлөвлөгөө рүү очих">
+            <a href="plan.html" aria-label="Төлөвлөгөө рүү очих" aria-current="page">
                 <img src="/iconpic/plan.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
                 <span class="visually-hidden">Төлөвлөгөө</span>
             </a>
@@ -78,34 +78,55 @@
     </header>
 
     <main id="main-content" role="main" tabindex="-1">
-        <h1 class="visually-hidden">Хөргөгчний орц бүртгэл</h1>
+        <h1 class="visually-hidden">7 хоногийн хоолны төлөвлөгөө</h1>
         
-        <section class="orts" aria-labelledby="ingredients-search">
-            <label for="orts-search" class="visually-hidden">Орцны нэрээр хайх</label>
-            <input type="search" 
-                   name="search" 
-                   id="orts-search" 
-                   placeholder="Орцны нэр"
-                   aria-label="Орцны нэрээр хайх">
-            <ul class="orts-list" role="list" aria-label="Орцны жагсаалт">
-                <li><button type="button" aria-pressed="false">Алим</button></li>
-                <li><button type="button" aria-pressed="false">Аарц</button></li>
-                <li><button type="button" aria-pressed="false">Будаа</button></li>
-                <li><button type="button" aria-pressed="false">Бор будаа</button></li>
-                <li><button type="button" aria-pressed="false">Сармис</button></li>
-                <li><button type="button" aria-pressed="false">Сүү</button></li>
-                <li><button type="button" aria-pressed="false">Үхрийн мах</button></li>
-                <li><button type="button" aria-pressed="false">Хонины мах</button></li>
-                <li><button type="button" aria-pressed="false">Сүүл</button></li>
-                <li><button type="button" aria-pressed="false">Гадил</button></li>
-            </ul>
-        </section>
-
-        <section class="categories" aria-label="Сонгосон орцны жагсаалт">
-            <ul class="container" role="list">
-                <!-- Dynamic content will be added here -->
-            </ul>
-        </section>
+        <table class="meal-planner" role="grid" aria-label="7 хоногийн хоолны төлөвлөгөө">
+            <caption class="visually-hidden">7 хоногийн хоолны цагийн хуваарь</caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="meal-times"></th>
+                    <th scope="col" class="days">Даваа</th>
+                    <th scope="col" class="days">Мягмар</th>
+                    <th scope="col" class="days">Лхагва</th>
+                    <th scope="col" class="days">Пүрэв</th>
+                    <th scope="col" class="days">Баасан</th>
+                    <th scope="col" class="days">Бямба</th>
+                    <th scope="col" class="days">Ням</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row" data-label="Өглөө">Өглөө</th>
+                    <td data-label="Даваа" aria-label="Даваа өглөө"></td>
+                    <td data-label="Мягмар" aria-label="Мягмар өглөө"></td>
+                    <td data-label="Лхагва" aria-label="Лхагва өглөө"></td>
+                    <td data-label="Пүрэв" aria-label="Пүрэв өглөө"></td>
+                    <td data-label="Баасан" aria-label="Баасан өглөө"></td>
+                    <td data-label="Бямба" aria-label="Бямба өглөө"></td>
+                    <td data-label="Ням" aria-label="Ням өглөө"></td>
+                </tr>
+                <tr>
+                    <th scope="row" data-label="Өдөр">Өдөр</th>
+                    <td data-label="Даваа" aria-label="Даваа Өдөр"></td>
+                    <td data-label="Мягмар" aria-label="Мягмар Өдөр"></td>
+                    <td data-label="Лхагва" aria-label="Лхагва Өдөр"></td>
+                    <td data-label="Пүрэв" aria-label="Пүрэв Өдөр"></td>
+                    <td data-label="Баасан" aria-label="Баасан Өдөр"></td>
+                    <td data-label="Бямба" aria-label="Бямба Өдөр"></td>
+                    <td data-label="Ням" aria-label="Ням Өдөр"></td>
+                </tr>
+                <tr></tr>
+                    <th scope="row" data-label="Орой">Орой</th>
+                    <td data-label="Даваа" aria-label="Даваа Орой"></td>
+                    <td data-label="Мягмар" aria-label="Мягмар Орой"></td>
+                    <td data-label="Лхагва" aria-label="Лхагва Орой"></td>
+                    <td data-label="Пүрэв" aria-label="Пүрэв Орой"></td>
+                    <td data-label="Баасан" aria-label="Баасан Орой"></td>
+                    <td data-label="Бямба" aria-label="Бямба Орой"></td>
+                    <td data-label="Ням" aria-label="Ням Орой"></td>
+                </tr>
+            </tbody>
+        </table>
     </main>
 
     <footer role="contentinfo">

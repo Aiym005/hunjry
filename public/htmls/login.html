@@ -9,11 +9,20 @@
   <meta name="author" content="Hungry App Team">
   <meta name="robots" content="index, follow">
   
+  <!-- Open Graph meta tags for social sharing -->
   <meta property="og:title" content="Hungry App - Нэвтрэх">
   <meta property="og:description" content="Hungry App - Монголын хамгийн том жорын сан. Амттай хоол хийх жор, зааврыг манайхаас.">
   <meta property="og:image" content="/iconpic/logo.gif">
+  <meta property="og:url" content="https://your-domain.com/login">
   
-  <link rel="stylesheet" href="./css/login.css">
+  <!-- PWA related tags -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4CAF50">
+  <link rel="apple-touch-icon" href="/iconpic/logo.gif">
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/css/login.css" as="style">
+  <link rel="stylesheet" href="/css/login.css">
   
   <title>Hungry App - Нэвтрэх | Монголын хамгийн том жорын сан</title>
   <script src="/register-sw.js" defer></script>
@@ -80,6 +89,7 @@
     </p>
   </main>
 
+  <!-- Add CSS for accessibility -->
   <style>
     .visually-hidden {
       position: absolute;
@@ -108,10 +118,6 @@
         toggleButton.setAttribute('aria-label', 'Нууц үгийг харуулах');
       }
     });
-    const loginButton = document.querySelector('.login-button');
-    loginButton.addEventListener('click', ()=>{
-        window.location.href = '/htmls/nuur.html'
-    })
   </script>
   <script src="/Javascript/login.js" defer></script>
 </body>

@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Carlito';
+}
+
+html,
+body {
+    height: 100%;
+    background-color: var(--main-bg-color);
+}
+
+body{
+    --main-header-bg-color:#6C837B;
+    --main-bg-color:#FBF8F1;
+    --main-button-color: #6C837B;
+    --main-ui-color: #C2C9C6;
+    --main-footer-color: #eaeaea;
+}
+button {
+    border: transparent;
+    width: 50px;
+    height: 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: var(--main-header-bg-color);
+    cursor: pointer;
+
+}
+header {
+    background-color: var(--main-header-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.icons {
+    display: flex;
+    gap: 15px;
+    filter: brightness(0) invert(1);
+}
+
+.icons img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.search-bar {
+    position: absolute;
+    top: 10px;
+    left: 30%;
+    flex: 1;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dropdown-container {
+    position: relative;
+    width: 600px;
+    border: solid 1px #000;
+    height: auto;
+    font-size: 30px;
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    align-content: center;
+}
+.food-name{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.dropdown-container a{
+    text-decoration: none;
+    color: #000;
+}
+.dropdown-container img{
+    justify-self: center;
+    align-self: center;
+    margin-left: 10px;
+    width: 45px;
+    height: 45px;
+}
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.logo img {
+    border-radius: 10px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 120%;
+    padding-top: 40px;
+    background-color: #e0e0e0;
+    justify-content: space-evenly;
+    overflow: hidden;
+}
+
+.meal-planner {
+    margin-top: 20px;
+    width: 85%;
+    height: 85%;
+    border-radius: 15px;
+    background-color: white;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.meal-planner td img{
+    width: 150px;
+    height: 150px;
+}
+.meal-planner th,
+.meal-planner td {
+    padding: 20px;
+    text-align: center;
+}
+
+.meal-planner td {
+    border: 1px solid #000;
+}
+
+.meal-times {
+    width: 7%;
+}
+
+.days {
+    width: 13%;
+}
+
+
+
+.meal-planner td {
+    min-height: 100px;
+    height: calc(100% / 3);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-bar {
+        margin: 10px 0;
+    }
+
+    .icons {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .meal-planner,
+    .meal-planner thead,
+    .meal-planner tbody,
+    .meal-planner th,
+    .meal-planner td {
+        display: block;
+        width: 100%;
+    }
+
+    .meal-planner thead {
+        display: none;
+    }
+
+    .meal-planner tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .meal-planner td {
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+        white-space: nowrap;
+    }
+
+    .meal-planner td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .meal-times {
+        width: 100%;
+    }
+}
+footer {
+    background-color: var(--main-footer-color);
+    background-image: linear-gradient(#ccc, var(--main-footer-color));
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+}
+
+footer section {
+    flex: 1;
+    margin: 0 10px;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 5px;
+}
