@@ -3,7 +3,7 @@ const { Client } = require('pg');
 const path = require('path');
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 const client = new Client({
   user: 'postgres',
@@ -13,7 +13,7 @@ const client = new Client({
   port: 5432,
 });
 
-client.connect();
+//client.connect();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
@@ -64,7 +64,7 @@ app.get('/api/likes/:recipeId', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'htmls', 'nuur.html'));
+  res.sendFile(path.join(__dirname, 'public', 'htmls', 'login.html'));
 });
 
 app.get('/htmls/:file', (req, res) => {

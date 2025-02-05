@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hungry App - Монголын хамгийн том жорын сан. Амттай хоол хийх жор, зааврыг манайхаас.">
+  <meta name="keywords" content="жор, хоол, монгол хоол, хоол хийх, амттай хоол">
+  <meta name="author" content="Hungry App Team">
+  <meta name="robots" content="index, follow">
+  
+  <meta property="og:title" content="Hungry App - Нэвтрэх">
+  <meta property="og:description" content="Hungry App - Монголын хамгийн том жорын сан. Амттай хоол хийх жор, зааврыг манайхаас.">
+  <meta property="og:image" content="/iconpic/logo.gif">
+  
+  <link rel="stylesheet" href="./css/login.css">
+  
+  <title>Hungry App - Нэвтрэх | Монголын хамгийн том жорын сан</title>
+  <script src="/register-sw.js" defer></script>
+</head>
+
+<body>
+  <main class="container">
+    <header class="logo">
+      <a href="nuur.html" aria-label="Нүүр хуудас руу буцах">
+        <img src="/iconpic/logo.gif" alt="Hungry App Logo" width="150" height="150">
+      </a>
+    </header>
+    
+    <form class="form-field" action="/login" method="POST">
+      <label for="username" class="visually-hidden">Нэвтрэх нэр</label>
+      <input type="text" 
+             name="username" 
+             id="username" 
+             placeholder="Нэвтрэх нэр"
+             required
+             autocomplete="username">
+             
+      <div class="password-field">
+        <label for="password" class="visually-hidden">Нууц үг</label>
+        <input type="password" 
+               name="password" 
+               id="password" 
+               placeholder="Нууц үг"
+               required
+               autocomplete="current-password">
+        <button type="button" 
+                id="toggle-password" 
+                aria-label="Нууц үгийг харуулах/нуух">🐵</button>
+      </div>
+    </form>
+    
+    <section class="other-login">
+      <div class="fb-google-login">
+        <a href="#" 
+           aria-label="Facebook-ээр нэвтрэх" 
+           rel="noopener">
+          <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" 
+               alt="Facebook Logo" 
+               width="40" 
+               height="40">
+        </a>
+        <a href="#" 
+           aria-label="Google-ээр нэвтрэх" 
+           rel="noopener">
+          <img src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_"G"_logo.svg' 
+               alt="Google Logo" 
+               width="40" 
+               height="40">
+        </a>
+      </div>
+      <div class="login-button">
+        <button type="submit">Нэвтрэх</button>
+      </div>
+    </section>
+    
+    <p class="sign-up">
+      Хэрвээ нэвтрэх эрх байхгүй бол 
+      <a href="/register" aria-label="Шинээр бүртгүүлэх">бүртгүүлнэ</a> үү
+    </p>
+  </main>
+
+  <style>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+
+  <script>
+    document.getElementById('toggle-password').addEventListener('click', function() {
+      const passwordInput = document.getElementById('password');
+      const toggleButton = this;
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleButton.textContent = '🙈';
+        toggleButton.setAttribute('aria-label', 'Нууц үгийг нуух');
+      } else {
+        passwordInput.type = 'password';
+        toggleButton.textContent = '🐵';
+        toggleButton.setAttribute('aria-label', 'Нууц үгийг харуулах');
+      }
+    });
+    const loginButton = document.querySelector('.login-button');
+    loginButton.addEventListener('click', ()=>{
+        window.location.href = '/htmls/nuur.html'
+    })
+  </script>
+  <script src="/Javascript/login.js" defer></script>
+</body>
+
+</html>

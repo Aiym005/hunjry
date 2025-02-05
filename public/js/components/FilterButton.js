@@ -24,13 +24,14 @@ export class FilterButton extends HTMLElement {
             }
         });
     
-        this.setAttribute('active', '');  // ✅ Correctly mark as active
+        this.setAttribute('active', '');
     
         this.dispatchEvent(new CustomEvent('filter-changed', {
             bubbles: true,
             composed: true,
             detail: { filter: this.getAttribute('filter') }
         }));
+        console.log("Filter changed to:", this.getAttribute('filter'));
     }        
 
     render() {

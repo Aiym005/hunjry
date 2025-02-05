@@ -51,7 +51,7 @@ export class RecipeGrid extends HTMLElement {
         }
 
         try {
-            const response = await fetch('/json/recipes.json');
+            const response = await fetch('./json/recipes.json');
             const data = await response.json();
             this.recipes = data.recipes;
             this.cachedRecipes = data.recipes;
@@ -82,10 +82,13 @@ export class RecipeGrid extends HTMLElement {
     getFilteredRecipes() {
         if (this.currentFilter === 'Бүгд') return this.recipes;
     
-        return this.recipes.filter(recipe => {
+        const filtered = this.recipes.filter(recipe => {
             const mealTypes = Array.isArray(recipe.mealType) ? recipe.mealType : [recipe.mealType];
             return mealTypes.some(type => type.trim() === this.currentFilter);
         });
+
+        console.log('Filtered Recipes:', filtered); // Debugging line
+        return filtered;
     }    
 
     updatePagination() {
@@ -95,6 +98,9 @@ export class RecipeGrid extends HTMLElement {
         if (this.currentPage > this.totalPages) {
             this.currentPage = this.totalPages;
         }
+    
+        console.log('Total Pages:', this.totalPages); // Debugging line
+        console.log('Current Page:', this.currentPage); // Debugging line
     
         this.dispatchEvent(new CustomEvent('update-pagination', {
             bubbles: true,

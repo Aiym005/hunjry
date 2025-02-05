@@ -6,7 +6,7 @@ class SearchBar {
 
     async fetchRecipes() {
         try {
-            const response = await fetch('/json/recipes.json');
+            const response = await fetch('./json/recipes.json');
             const data = await response.json();
             this.recipes = data.recipes;
         } catch (error) {

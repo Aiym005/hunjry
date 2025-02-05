@@ -1,11 +1,9 @@
-// Import the Web Components (assuming they are in separate files)
 import './FoodItem.js';
 import './LikeButton.js';
 
-// Function to fetch and display food items
 async function fetchAndDisplayFoodItems() {
     try {
-        const response = await fetch('/api/food-items'); // Replace with your API endpoint
+        const response = await fetch('/api/food-items');
         const foodItems = await response.json();
 
         const foodListContainer = document.getElementById('food-list');

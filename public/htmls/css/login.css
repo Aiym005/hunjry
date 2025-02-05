@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Carlito";
+  color: #fff;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('/foodpic/519.jpg') no-repeat top left / cover;
+}
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+#toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 23px;
+}
+#password{
+  flex: 1;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 870px;
+  height: 530px;
+  border-radius: 15px;
+  border: #000 2px solid;
+  backdrop-filter: blur(3px);
+  justify-content: space-between;
+  padding: 15px;
+}
+.container img{
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+}
+.form-field{
+  display: flex;
+  flex-direction: column;
+  padding: 0 60px 0 60px;
+  gap: 30px;
+}
+.form-field input{
+  height: 60px;
+  font-size: 25px;
+  border-radius: 10px;
+  padding-left: 10px;
+  color: #000;
+}
+.other-login{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 60px 0 60px;
+}
+.fb-google-login{
+  display: flex;
+  gap: 10px;
+}
+.login-button button{
+  width: 100px;
+  height: 40px;
+  font: 1em sans-serif;
+  color: #000;
+  background-color: #6C837B;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+.container p{
+  align-self: flex-end;
+  padding: 0 60px 0 60px;
+}
