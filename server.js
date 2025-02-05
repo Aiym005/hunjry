@@ -6,7 +6,7 @@ const apiDocs = require('./api-docs.json');
 const db = require('./database.js');
 const compression = require('compression');
 const app = express();
-let PORT = 3000;
+let PORT = 5000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
