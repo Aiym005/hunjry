@@ -11,25 +11,39 @@
 
 <body>
     <header>
-        <a href="/htmls/nuur.html">
-            <img src="/iconpic/logo.gif" alt="Hungry App Logo">
+        <a class="logo" href="/htmls/nuur.html" aria-label="Нүүр хуудас руу буцах">
+            <img src="/iconpic/logo.gif" 
+                 alt="Hungry App Logo" 
+                 width="45" 
+                 height="45"
+                 loading="eager"
+                 fetchpriority="high">
         </a>
-        <section class="search-container"></section>
-        <nav>
-            <a href="/htmls/nuur.html">
-                <img src="/iconpic/log-out.png" alt="log-out pic">
+
+        <section class="search-bar">
+            <input type="search" 
+                   name="search" 
+                   id="search-bar" 
+                   placeholder="Хоолны нэр"
+                   aria-label="Хоолны нэрээр хайх">
+            <section class="dropdown-container" aria-live="polite"></section>
+        </section>
+
+        <nav class="icons" aria-label="Үндсэн цэс">
+            <a href="/htmls/nuur.html" aria-label="Гарах">
+                <img src="/iconpic/log-out.png" alt="Гарах" width="30" height="30" loading="lazy">
             </a>
-            <a href="/htmls/fridge.html">
-                <img src="/iconpic/fridge.png" alt="fridge pic">
+            <a href="/htmls/fridge.html" aria-label="Хөргөгч">
+                <img src="/iconpic/fridge.png" alt="Хөргөгч" width="30" height="30" loading="lazy">
             </a>
-            <a href="/htmls/meal_planner.html">
-                <img src="/iconpic/plan.png" alt="plan pic">
+            <a href="/htmls/meal_planner.html" aria-label="Төлөвлөгөө">
+                <img src="/iconpic/plan.png" alt="Төлөвлөгөө" width="30" height="30" loading="lazy">
             </a>
-            <a href="/htmls/food_info.html">
-                <img src="/iconpic/food.png" alt="food info pic">
+            <a href="/htmls/food_info.html" aria-label="Хоол">
+                <img src="/iconpic/food.png" alt="Хоол" width="30" height="30" loading="lazy">
             </a>
-            <a href="/htmls/user_profile.html">
-                <img src="/iconpic/profile.png" alt="user's profile pic">
+            <a href="/htmls/user_profile.html" aria-label="Профайл">
+                <img src="/iconpic/profile.png" alt="Профайл" width="30" height="30" loading="lazy">
             </a>
         </nav>
     </header>

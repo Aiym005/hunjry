@@ -4,41 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="description" content="Hungry App - Хоолны жорын дэлгэрэнгүй мэдээлэл. Орц найрлага, хийх дараалал, үнэлгээ болон сэтгэгдлүүд.">
+    <meta name="keywords" content="жор, хоол, монгол хоол, хоол хийх, орц найрлага, хийх дараалал">
+    <meta name="author" content="Hungry App Team">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="Hungry App - Хоолны жорын дэлгэрэнгүй">
+    <meta property="og:description" content="Хоолны жорын дэлгэрэнгүй мэдээлэл. Орц найрлага, хийх дараалал, үнэлгээ болон сэтгэгдлүүд.">
+    <meta property="og:image" content="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg">
+    <meta property="og:url" content="http://localhost:3000/htmls/hool_detail.html">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="preload" href="/css/hool_detail.css" as="style">
+    <link rel="preload" href="/iconpic/logo.gif" as="image" type="image/gif">
+    <link rel="canonical" href="http://localhost:3000/htmls/hool_detail.html" />
+    <link rel="alternate" href="http://localhost:3000/htmls/hool_detail.html" hreflang="mn" />
+    
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#4CAF50">
     <title>Hungry App - Хоолны жорын дэлгэрэнгүй | Орц, найрлага, хийх дараалал</title>
-    <link rel="stylesheet" href="css/food_detail.css">
-    <script src="/js/Search.js" defer></script>
-    <script src="app1.js" defer></script>
-
-    <!-- <script>
-        class Recipe {
-            constructor(name, image, ingredients, instructions) {
-                this.name = name;
-                this.image = image;
-                this.ingredients = ingredients;
-                this.instructions = instructions;
-            }
-        }
-        function hey(){
-            const recipe= new Recipe;
-            alert(recipe.name);
-        }
-        const products=[
-            {
-                name: "Бяслагтай макарон", 
-                image: "/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
-            },
-            {
-                name: "Бяслагтай макарон", 
-                image: "/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
-            },
-            {
-                name: "Бяслагтай макарон", 
-                image: "/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
-            }
-        ]
-    </script> -->
+    <link rel="stylesheet" href="/css/hool_detail.css">
+    <script src="/register-sw.js" defer></script>
+    <script src="/Javascript/food-detail.js" defer></script>
 </head>
 
 <body>
@@ -64,21 +51,26 @@
             <section class="dropdown-container" aria-live="polite"></section>
         </section>
 
-        <nav>
-            <a href="/htmls/nuur.html">
-                <img src="/iconpic/log-out.png" alt="log-out pic">
+        <nav class="icons" aria-label="Үндсэн цэс" role="navigation">
+            <a href="nuur.html" aria-label="Системээс гарах">
+                <img src="/iconpic/log-out.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Гарах</span>
             </a>
-            <a href="/htmls/fridge.html">
-                <img src="/iconpic/fridge.png" alt="fridge pic">
+            <a href="fridge.html" aria-label="Хөргөгч рүү очих">
+                <img src="/iconpic/fridge.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Хөргөгч</span>
             </a>
-            <a href="/htmls/meal_planner.html">
-                <img src="/iconpic/plan.png" alt="plan pic">
+            <a href="plan.html" aria-label="Төлөвлөгөө рүү очих">
+                <img src="/iconpic/plan.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Төлөвлөгөө</span>
             </a>
-            <a href="/htmls/food_info.html">
-                <img src="/iconpic/food.png" alt="food info pic">
+            <a href="food.html" aria-label="Хоолны жагсаалт руу очих">
+                <img src="/iconpic/food.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Хоол</span>
             </a>
-            <a href="/htmls/user_profile.html">
-                <img src="/iconpic/profile.png" alt="user's profile pic">
+            <a href="hereglegch.html" aria-label="Хэрэглэгчийн профайл руу очих">
+                <img src="/iconpic/profile.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
+                <span class="visually-hidden">Профайл</span>
             </a>
         </nav>
     </header>
@@ -93,10 +85,12 @@
                      width="800"
                      height="600"
                      loading="eager">
-                <h3>Бяслагтай макарон</h3>
+                     
                 <div class="icon" role="group" aria-label="Үнэлгээ болон сэтгэгдэл">
                     <div class="icons-container">
-                        <like-button></like-button>
+                        <button type="button" aria-label="Таалагдлаа" aria-pressed="false">
+                            <img src="/iconpic/heart.png" alt="" aria-hidden="true">
+                        </button>
                         <button type="button" aria-label="Сэтгэгдэл бичих" aria-expanded="false">
                             <img src="/iconpic/comment.png" alt="" aria-hidden="true">
                         </button>
@@ -113,44 +107,14 @@
                 </div>
                 
                 <section class="suggested-foods" aria-label="Санал болгож буй бусад хоол">
-                    <section>
-                        <img src="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
-                        alt="Бяслагтай макарон">
-                        <h3>Бяслагтай макарон</h3>
-                    </section>
-                    <section>
-                        <img src="/foodpic/238691-Simple-Macaroni-And-Cheese-mfs_006-f7f521c65f894aef85e17bc9125c2c4a.jpg"
-                        alt="Бяслагтай макарон">
-                        <h3>Бяслагтай макарон</h3>
-                    </section>
                 </section>
             </section>
 
             <section class="recipe-content" aria-label="Жорын мэдээлэл">
-                <section class="ingredients">
-                    <h2>Орц</h2>
-                    <ul>
-                        <li>Макарон</li>
-                        <li>Бяслаг</li>
-                        <li>Масло</li>
-                        <li>Сүү</li>
-                        <li>Сахар</li>
-                    </ul>     
-                </section>
-                <section class="instructions">
-                    <h2>Заавар</h2>
-                    <ul>
-                        <li>Макарон</li>
-                        <li>Бяслаг</li>
-                        <li>Масло</li>
-                        <li>Сүү</li>
-                        <li>Сахар</li>
-                    </ul>     
-                </section>
             </section>
 
             <section class="comments" aria-label="Сэтгэгдлүүд">
-                <h3>Сэтгэгдэл</h3>
+                <h2>Сэтгэгдэл</h2>
                 <form class="comment-input" aria-label="Сэтгэгдэл бичих">
                     <label for="commentInput" class="visually-hidden">Сэтгэгдэл</label>
                     <input type="text" 
@@ -160,8 +124,6 @@
                     <button type="submit">Нийтлэх</button>
                 </form>
                 <div class="comments-container" aria-live="polite">
-                            <img src="/iconpic/profile.png" alt="profile pic">
-                            <p>Сэтгэгдэл</p>
                 </div>
             </section>
         </article>

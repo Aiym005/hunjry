@@ -4,25 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/user_profile.css">
-    <script src="app1.js" defer></script>
+    <meta name="description" content="Hungry App - Хэрэглэгчийн хэсэг. Таалагдсан жор, хувийн мэдээлэл.">
+    <meta name="keywords" content="жор, хоол, монгол хоол, таалагдсан хоол, хэрэглэгч">
+    <meta name="author" content="Hungry App Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/css/hereglegch.css" as="style">
+    <link rel="preload" href="/iconpic/logo.gif" as="image" type="image/gif">
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4CAF50">
     <title>Hungry App - Хэрэглэгчийн хэсэг | Таалагдсан жор</title>
-    <!-- <script>
-        const products=[
-            {
-                name: "Пармежан тахианы мах", 
-                image: "/foodpic/image.webp"
-            },
-            {
-                name: "Пармежан тахианы мах", 
-                image: "/foodpic/image.webp"
-            },
-            {
-                name: "Пармежан тахианы мах", 
-                image: "/foodpic/image.webp"
-            }
-        ];
-    </script> -->
+    <link rel="stylesheet" href="/css/hereglegch.css">
+    <script src="/Javascript/search.js" defer></script>
+    <script src="/register-sw.js" defer></script>
 </head>
 
 <body>
@@ -37,6 +33,7 @@
         </a>
 
         <section class="search-bar">
+            <label for="search-bar" class="visually-hidden">Хоолны нэрээр хайх</label>
             <input type="search" 
                    name="search" 
                    id="search-bar" 
@@ -46,19 +43,19 @@
         </section>
 
         <nav class="icons" aria-label="Үндсэн цэс">
-            <a href="/htmls/nuur.html" aria-label="Гарах">
+            <a href="nuur.html" aria-label="Гарах">
                 <img src="/iconpic/log-out.png" alt="Гарах" width="30" height="30" loading="lazy">
             </a>
-            <a href="/htmls/fridge.html" aria-label="Хөргөгч">
+            <a href="fridge.html" aria-label="Хөргөгч">
                 <img src="/iconpic/fridge.png" alt="Хөргөгч" width="30" height="30" loading="lazy">
             </a>
-            <a href="/htmls/meal_planner.html" aria-label="Төлөвлөгөө">
+            <a href="plan.html" aria-label="Төлөвлөгөө">
                 <img src="/iconpic/plan.png" alt="Төлөвлөгөө" width="30" height="30" loading="lazy">
             </a>
-            <a href="/htmls/food_info.html" aria-label="Хоол">
+            <a href="food.html" aria-label="Хоол">
                 <img src="/iconpic/food.png" alt="Хоол" width="30" height="30" loading="lazy">
             </a>
-            <a href="/htmls/user_profile.html" aria-label="Профайл">
+            <a href="hereglegch.html" aria-label="Профайл">
                 <img src="/iconpic/profile.png" alt="Профайл" width="30" height="30" loading="lazy">
             </a>
         </nav>
@@ -67,7 +64,7 @@
     <main>
         <section class="main_info">
             <section class="profile">
-                <h2>Хувийн мэдээлэл</h2>
+                <h1>Хувийн мэдээлэл</h1>
                 <article class="user_info">
                     <dl>
                         <dt>Хэрэглэгчийн нэр:</dt>
@@ -89,7 +86,14 @@
                 <h2>Надад таалагдсан хоол</h2>
                 <div class="favorites-grid">
                     <article class="recipe-card">
-                        <food-item></food-item>
+                        <a href="hool_detail.html" aria-label="Пармежан тахианы махны жор">
+                            <img src="/foodpic/image.webp" 
+                                 alt="Пармежан тахианы мах" 
+                                 width="200" 
+                                 height="150"
+                                 loading="lazy">
+                            <h3>Пармежан тахианы мах</h3>
+                        </a>
                     </article>
                 </div>
             </section>
@@ -141,6 +145,22 @@
             </ul>
         </section>
     </footer>
+
+    <!-- Add CSS for accessibility -->
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+
+    <script src="/Javascript/hereglegch.js" defer></script>
 </body>
 
 </html>
