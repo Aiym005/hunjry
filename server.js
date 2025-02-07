@@ -3,10 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const apiDocs = require('./api-docs.json');
-const db = require('./database.js');
+// const db = require('./database.js');
 const compression = require('compression');
 const app = express();
-let PORT = 5000;
+let PORT = 8000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -223,16 +223,16 @@ app.use(express.static('public', {
     }
 }));
 
-async function initializeDatabase() {
-    try {
-        await db.importUsersFromJson();
-        console.log('Database initialized with JSON data');
-    } catch (error) {
-        console.error('Error initializing database:', error);
-    }
-}
+// async function initializeDatabase() {
+//     try {
+//         await db.importUsersFromJson();
+//         console.log('Database initialized with JSON data');
+//     } catch (error) {
+//         console.error('Error initializing database:', error);
+//     }
+// }
 
-initializeDatabase();
+// initializeDatabase();
 
 const server = app.listen(PORT)
     .on('error', (err) => {
