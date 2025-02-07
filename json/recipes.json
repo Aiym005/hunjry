@@ -69,6 +69,11 @@
           "id": 7,
           "body": "ene comment hadgalagdahuu",
           "userId": 3
+        },
+        {
+          "id": 8,
+          "body": "hadgalagdnaa",
+          "userId": 1
         }
       ]
     },
@@ -200,6 +205,11 @@
         {
           "id": 6,
           "body": "Шоколадны үйрмэг нь тун тохиромжтой хэмжээтэй байсан"
+        },
+        {
+          "id": 7,
+          "body": "mm",
+          "userId": 3
         }
       ]
     },

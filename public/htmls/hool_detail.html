@@ -20,12 +20,11 @@
     <link rel="canonical" href="http://localhost:3000/htmls/hool_detail.html" />
     <link rel="alternate" href="http://localhost:3000/htmls/hool_detail.html" hreflang="mn" />
     
-    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#4CAF50">
     <title>Hungry App - Хоолны жорын дэлгэрэнгүй | Орц, найрлага, хийх дараалал</title>
     <link rel="stylesheet" href="/css/hool_detail.css">
-    <script src="/register-sw.js" defer></script>
-    <script src="/Javascript/food-detail.js" defer></script>
+    <script type="module" src="/Javascript/components/app.js" defer></script>
+    <script  src="/Javascript/food-detail.js" defer></script>
 </head>
 
 <body>
@@ -88,9 +87,7 @@
                      
                 <div class="icon" role="group" aria-label="Үнэлгээ болон сэтгэгдэл">
                     <div class="icons-container">
-                        <button type="button" aria-label="Таалагдлаа" aria-pressed="false">
-                            <img src="/iconpic/heart.png" alt="" aria-hidden="true">
-                        </button>
+                        <div class="like-button-container"></div>
                         <button type="button" aria-label="Сэтгэгдэл бичих" aria-expanded="false">
                             <img src="/iconpic/comment.png" alt="" aria-hidden="true">
                         </button>

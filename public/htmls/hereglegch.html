@@ -13,12 +13,11 @@
     <link rel="preload" href="/css/hereglegch.css" as="style">
     <link rel="preload" href="/iconpic/logo.gif" as="image" type="image/gif">
     
-    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#4CAF50">
     <title>Hungry App - Хэрэглэгчийн хэсэг | Таалагдсан жор</title>
     <link rel="stylesheet" href="/css/hereglegch.css">
     <script src="/Javascript/search.js" defer></script>
-    <script src="/register-sw.js" defer></script>
+    <script type="module" src="/Javascript/components/app.js" defer></script>
 </head>
 
 <body>
@@ -86,14 +85,7 @@
                 <h2>Надад таалагдсан хоол</h2>
                 <div class="favorites-grid">
                     <article class="recipe-card">
-                        <a href="hool_detail.html" aria-label="Пармежан тахианы махны жор">
-                            <img src="/foodpic/image.webp" 
-                                 alt="Пармежан тахианы мах" 
-                                 width="200" 
-                                 height="150"
-                                 loading="lazy">
-                            <h3>Пармежан тахианы мах</h3>
-                        </a>
+                        <div class="liked-recipes-container"></div>
                     </article>
                 </div>
             </section>

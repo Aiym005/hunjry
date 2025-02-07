@@ -3,10 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const apiDocs = require('./api-docs.json');
-const db = require('./database.js');
+// const db = require('./database.js');
 const compression = require('compression');
 const app = express();
-let PORT = 5000;
+let PORT = 8000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -29,13 +29,7 @@ try {
     ingredientsData = { ingredients: [] };
 }
 
-let userData;
-try {
-    userData = JSON.parse(fs.readFileSync('./json/user.json'));
-} catch (error) {
-    console.error('Error reading user.json:', error);
-    userData = { users: [] };
-}
+let userData = JSON.parse(fs.readFileSync('./json/user.json', 'utf-8'));
 
 app.get('/api/recipes', (req, res) => {
     try {
@@ -125,6 +119,7 @@ app.get('/htmls/:file', (req, res) => {
 app.post('/api/like-food', (req, res) => {
     const { userId, recipeId } = req.body;
 
+    // Ensure that userData.users is properly loaded
     const user = userData.users.find(u => u.userId === userId);
 
     if (user) {
@@ -134,7 +129,6 @@ app.post('/api/like-food', (req, res) => {
 
         if (!user.likedFoods.includes(recipeId)) {
             user.likedFoods.push(recipeId);
-
             fs.writeFileSync('./json/user.json', JSON.stringify(userData, null, 2));
 
             res.json({ success: true, message: 'Food added to favorites' });
@@ -148,7 +142,6 @@ app.post('/api/like-food', (req, res) => {
         res.json({ success: false, message: 'User not found' });
     }
 });
-
 app.get('/api/user/:userId/liked-recipes', (req, res) => {
     const userId = parseInt(req.params.userId);
     const user = userData.users.find(u => u.userId === userId);
@@ -223,16 +216,16 @@ app.use(express.static('public', {
     }
 }));
 
-async function initializeDatabase() {
-    try {
-        await db.importUsersFromJson();
-        console.log('Database initialized with JSON data');
-    } catch (error) {
-        console.error('Error initializing database:', error);
-    }
-}
+// async function initializeDatabase() {
+//     try {
+//         await db.importUsersFromJson();
+//         console.log('Database initialized with JSON data');
+//     } catch (error) {
+//         console.error('Error initializing database:', error);
+//     }
+// }
 
-initializeDatabase();
+// initializeDatabase();
 
 const server = app.listen(PORT)
     .on('error', (err) => {

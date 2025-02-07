@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateUserInfo(user);
     
     // Load and display liked recipes
-    loadLikedRecipes(user.userId);
+    //loadLikedRecipes(user.userId);
 });
 /* Хэрэглэгчийн мэдээллийг дэлгэц дээр шинэчилж, харуулна. Хэрэглэгчийн нэр, утас, гэрийн хаяг, 
 имэйл зэргийг харуулах бөгөөд хариулах "Системээс гарах" товчийг нэмнэ. Хэрэглэгч гарах товчийг 
@@ -48,45 +48,45 @@ userId-ийг ашиглан серверээс хоолны мэдээллий�
 Хэрэв хоолны жагсаалт хоосон бол "Таалагдсан хоол байхгүй байна" гэсэн мессеж харуулдаг.
 Таалагдсан хоол байгаа тохиолдолд хоол бүрийг дэлгэцэнд дүрс болон нэртэй нь харуулна. */
 
-async function loadLikedRecipes(userId) {
-    try {
-        const response = await fetch(`/api/user/${userId}/liked-recipes`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const likedRecipes = await response.json();
+// async function loadLikedRecipes(userId) {
+//     try {
+//         const response = await fetch(`/api/user/${userId}/liked-recipes`);
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+//         const likedRecipes = await response.json();
         
-        const userFavsContainer = document.querySelector('.user_favs');
-        if (!userFavsContainer) return;
+//         const userFavsContainer = document.querySelector('.user_favs');
+//         if (!userFavsContainer) return;
 
-        // Keep the title
-        userFavsContainer.innerHTML = '<h2>Надад таалагдсан хоол</h2>';
+//         // Keep the title
+//         userFavsContainer.innerHTML = '<h2>Надад таалагдсан хоол</h2>';
 
-        if (!Array.isArray(likedRecipes) || likedRecipes.length === 0) {
-            userFavsContainer.innerHTML += '<p>Таньд одоогоор таалагдсан хоол байхгүй байна.</p>';
-            return;
-        }
+//         if (!Array.isArray(likedRecipes) || likedRecipes.length === 0) {
+//             userFavsContainer.innerHTML += '<p>Таньд одоогоор таалагдсан хоол байхгүй байна.</p>';
+//             return;
+//         }
 
-        likedRecipes.forEach(recipe => {
-            if (recipe) {
-                const articleElement = document.createElement('article');
-                articleElement.innerHTML = `
-                    <a href="/htmls/hool_detail.html?id=${recipe.id}">
-                        <img src="${recipe.image}" alt="${recipe.name}">
-                        <p>${recipe.name}</p>
-                    </a>
-                `;
-                userFavsContainer.appendChild(articleElement);
-            }
-        });
-    } catch (error) {
-        console.error('Error loading liked recipes:', error);
-        const userFavsContainer = document.querySelector('.user_favs');
-        if (userFavsContainer) {
-            userFavsContainer.innerHTML = `
-                <h2>Надад таалагдсан хоол</h2>
-                <p>Таалагдсан хоолнуудыг ачаалахад алдаа гарлаа.</p>
-            `;
-        }
-    }
-} 
+//         likedRecipes.forEach(recipe => {
+//             if (recipe) {
+//                 const articleElement = document.createElement('article');
+//                 articleElement.innerHTML = `
+//                     <a href="/htmls/hool_detail.html?id=${recipe.id}">
+//                         <img src="${recipe.image}" alt="${recipe.name}">
+//                         <p>${recipe.name}</p>
+//                     </a>
+//                 `;
+//                 userFavsContainer.appendChild(articleElement);
+//             }
+//         });
+//     } catch (error) {
+//         console.error('Error loading liked recipes:', error);
+//         const userFavsContainer = document.querySelector('.user_favs');
+//         if (userFavsContainer) {
+//             userFavsContainer.innerHTML = `
+//                 <h2>Надад таалагдсан хоол</h2>
+//                 <p>Таалагдсан хоолнуудыг ачаалахад алдаа гарлаа.</p>
+//             `;
+//         }
+//     }
+// } 
