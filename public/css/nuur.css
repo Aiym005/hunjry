@@ -103,7 +103,7 @@ header nav img:hover {
 }
 #food-suggestions {
     padding: 30px;
-    background: #fff;
+    background:#FBF8F1;
     text-align: center;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
