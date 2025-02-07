@@ -8,7 +8,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.6;
     color: #333333;
-    background-color: #333;
+    background-color: #FBF8F1;
 }
 
 header {
@@ -188,7 +188,7 @@ label.selected {
 
 
 footer {
-    background: #4d4c4c;
+    background: #333;
     color: white;
     padding: 50px;
     display: grid;

@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
     height: 100%;
     font-family: Arial, sans-serif;
     background-color: #FBF8F1;
@@ -12,22 +11,8 @@ body {
     font-family: 'Carlito';
 }
 
-html,
-body {
-    height: 100%;
-    background-color: var(--main-bg-color);
-}
-
-:root{
-    --main-header-bg-color:#6C837B;
-    --main-bg-color:#FBF8F1;
-    --main-button-color: #6C837B;
-    --main-ui-color: #C2C9C6;
-    --main-footer-color: #eaeaea;
-}
-
 header {
-    background-color: #6C837B;
+    background-color: #333;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -41,14 +26,12 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin: 15px 0; */
 }
 
 .icons-container {
     display: flex;
     gap: 15px;
     margin: 10px 0;
-    /* padding: 10px; */
     justify-content: center;
     align-items: center;
 }
@@ -62,7 +45,7 @@ header {
 
 .heart-button, .comment-button {
     background: none;
-    border: 2px solid #6C837B;
+    border: 2px solid #f6c77c;
     border-radius: 50%;
     cursor: pointer;
     padding: 8px;
@@ -77,7 +60,7 @@ header {
 
 .heart-button:hover, .comment-button:hover {
     transform: scale(1.1);
-    background-color: #6C837B;
+    background-color: #f6c77c;
 }
 
 .heart-button:hover img, .comment-button:hover img {
@@ -100,21 +83,19 @@ header {
     filter: brightness(0) invert(1);
 }
 
-/* Add ripple effect on click */
 .heart-button:active, .comment-button:active {
     transform: scale(0.95);
 }
 
-/* Add focus state for accessibility */
 .heart-button:focus, .comment-button:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(108, 131, 123, 0.3);
-} 
+}
 
 .icons {
     display: flex;
     gap: 15px;
-    filter: brightness(0) invert(1);
+    filter: invert(57%) sepia(100%) saturate(1000%) hue-rotate(0deg) brightness(100%) contrast(100%);
 }
 
 .icons img {
@@ -176,33 +157,39 @@ header {
     text-decoration: none;
     font-size: 16px;
 }
+
 .suggested-foods {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-top: 20px;
 }
+
 .suggested-food {
     width: 100%;
     height: 100%;
 }
+
 .suggested-food a {
     text-decoration: none;
     color: inherit;
     display: block;
 }
+
 .suggested-food img {
     width: 100%;
     height: 200px;
     object-fit: cover;
     border-radius: 8px;
 }
+
 .suggested-food h3 {
     margin-top: 10px;
     font-size: 1rem;
     text-align: center;
     color: #333;
 }
+
 .food-name:last-child {
     border-bottom: none;
 }
@@ -224,25 +211,11 @@ header {
     border-radius: 8px;
 }
 
-/* .icons-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 10px;
-} */
-
-/* .icons-container img {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-} */
-
 .icon {
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
-} 
+}
 
 .rating-container {
     position: relative;
@@ -258,7 +231,6 @@ header {
     height: 20px;
 }
 
-/* Comments Section */
 .comments {
     padding: 15px;
 }
@@ -284,7 +256,7 @@ header {
 
 .comment-input button {
     padding: 10px 15px;
-    background-color: #6C837B;
+    background-color: #ca6fd8;
     color: white;
     border: none;
     border-radius: 25px;
@@ -343,6 +315,7 @@ main {
     width: 100%;
     gap: 25px;
 }
+
 .recipe-details {
     display: flex;
     flex-direction: row;
@@ -351,6 +324,7 @@ main {
     width: 100%;
     gap: 25px;
 }
+
 main img {
     max-width: 100%;
     height: auto;
@@ -396,16 +370,18 @@ main img {
 }
 
 footer {
-    background-color: #eaeaea;
+    background-color: #333;
     padding: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     border-top: 1px solid #ccc;
 }
 
 footer section {
-    flex: 1;
-    margin: 0 10px;
+    flex: 1 1 150px;
+    margin: 10px;
+    text-align: left;
 }
 
 footer h3 {
@@ -414,14 +390,54 @@ footer h3 {
 }
 
 footer ul {
+    text-align: left;
     list-style-type: none;
     padding: 0;
 }
 
 footer ul li {
     margin-bottom: 5px;
+    color: #fffefe;
 }
 
+.footer-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+footer ul li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+footer {
+    background: #333;
+    color: white;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+footer section h3 {
+    margin-bottom: 1rem;
+    color: #f90;
+}
+footer ul {
+    list-style: none;
+}
+
+footer ul li {
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+footer ul li:hover {
+    opacity: 1;
+    cursor: pointer;
+}
 .recipe-content {
     animation-duration: 3s;
     animation-name: slide-in;
@@ -429,39 +445,20 @@ footer ul li {
 
 @keyframes slide-in {
     from {
-        translate: 150vw 0;
+        transform: translate(150vw, 0);
         scale: 200% 1;
     }
 
     to {
-        translate: 0 0;
+        transform: translate(0, 0);
         scale: 100% 1;
     }
 }
-
-/* @media (prefers-color-scheme: dark) {
-    body {
-        background-color: #333;
-    }
-
-    footer {
-        background-color: #444;
-        color: #f5f5f5;
-    }
-
-    footer ul li:hover {
-        color: #ccc;
-    }
-
-    h3 {
-        color: white;
-    }
-} */
 
 .comment-input button {
     transition: background-color 2s 500ms;
 }
 
 .comment-input button:hover {
-    background-color: darkgreen;
+    background-color: #f6c77c;
 }
