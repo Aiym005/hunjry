@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const apiDocs = require('./api-docs.json');
-// const db = require('./database.js');
+const db = require('./database.js');
 const compression = require('compression');
 const app = express();
 let PORT = 8000;
@@ -163,6 +163,12 @@ app.get('/api/user/:userId/liked-recipes', (req, res) => {
     }
 });
 
+app.post('/api/insert-ingredients', (req, res) => {
+    const { ingredient, userId } = req.body;
+    db.insertIngredient(ingredient, userId);
+    res.json({ success: true, message: 'Ingredient added successfully' });
+});
+
 app.get('/api/add-comment', (req, res) => {
     try {
         const { userId, recipeId, comment, date } = req.body;
@@ -218,8 +224,8 @@ app.use(express.static('public', {
 
 // async function initializeDatabase() {
 //     try {
-//         await db.importUsersFromJson();
-//         console.log('Database initialized with JSON data');
+//         await db.testConnection();
+//         console.log('Database connected successfully');
 //     } catch (error) {
 //         console.error('Error initializing database:', error);
 //     }

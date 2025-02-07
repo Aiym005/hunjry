@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Add Like Button for the first liked recipe (optional, for single display)
     const likeButtonContainer = document.querySelector('.like-button-container');
     if (likeButtonContainer) {
         console.log(recipeId)
