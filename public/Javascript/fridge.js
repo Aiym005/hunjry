@@ -111,26 +111,35 @@ function setupClearFridge(clearButton, ingredientContainers, container) {
 
 function setupRecipeSearch(findButton, recipeList) {
     findButton.addEventListener('click', () => {
-        recipeList.innerHTML = '';
+        recipeList.innerHTML = ''; 
         
         const availableRecipes = recipesData.filter(recipe =>
-            recipe.ingredients.some(ingredient => 
-                fridgeIngredients.includes(ingredient)
+            fridgeIngredients.every(fridgeIng =>
+                recipe.ingredients.includes(fridgeIng)
             )
         );
 
         if (availableRecipes.length === 0) {
-            recipeList.innerHTML = '<p>Тохирох жор олдсонгүй.</p>';
+            const noResultMessage = document.createElement('p');
+            noResultMessage.textContent = 'Тохирох жор олдсонгүй.';
+            noResultMessage.style.color = '#0d0d0d';
+            noResultMessage.style.textAlign = 'center';
+            recipeList.appendChild(noResultMessage);
             return;
         }
 
         availableRecipes.forEach(recipe => {
             const recipeItem = document.createElement('li');
-            recipeItem.innerHTML = ` 
-              <img src="${recipe.image}" alt="${recipe.name}">
-              <a href='/htmls/hool_detail.html?id=${recipe.id}'>${recipe.name}</a>
+            recipeItem.innerHTML = `
+                <img src="${recipe.image}" alt="${recipe.name}" style="width: 100px; height: 100px; border-radius: 5px; margin-right: 10px;">
+                <a href="/htmls/hool_detail.html?id=${recipe.id}" style="text-decoration: none; color: #333; font-weight: bold;">${recipe.name}</a>
             `;
-            
+            recipeItem.style.display = 'flex';
+            recipeItem.style.alignItems = 'center';
+            recipeItem.style.padding = '10px';
+            recipeItem.style.backgroundColor = '#f9f9f9';
+            recipeItem.style.borderRadius = '5px';
+            recipeItem.style.marginBottom = '10px';
             recipeList.appendChild(recipeItem);
         });
     });
