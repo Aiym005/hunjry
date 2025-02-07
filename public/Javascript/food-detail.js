@@ -99,9 +99,7 @@ function updateImage(filter) {
             <h3>${recipe.name}</h3>
             <article class="icon">
                 <section class="icons-container">
-                    <button class="heart-button">
-                        <img src="/iconpic/heart.png" alt="like">
-                    </button>
+                    <like-button recipe-id="${recipe.id}"></like-button>
                     <button class="comment-button">
                         <img src="/iconpic/comment.png" alt="comment">
                     </button>

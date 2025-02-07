@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('User has no liked recipes.');
         return;
     }
-
     const likeButtonContainer = document.querySelector('.like-button-container');
     if (likeButtonContainer) {
         console.log(recipeId)
@@ -45,8 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const likedRecipesContainer = document.querySelector('.liked-recipes-container');
     if (likedRecipesContainer) {
         likedRecipesContainer.innerHTML =  `<liked-recipes user-id="${user.userId}"></liked-recipes>`;
-
-
-
     }
+
+    // lb.setupLikeButton(recipeId);
 });

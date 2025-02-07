@@ -17,16 +17,51 @@ class LikeButtonComponent extends HTMLElement {
             <style>
                 .heart-button {
                     background: none;
-                    border: none;
+                    border: 2px solid #6C837B;
+                    border-radius: 50%;
                     cursor: pointer;
+                    padding: 8px;
+                    transition: all 0.3s ease;
+                    width: 45px;
+                    height: 45px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
                 }
+
+                .heart-button:hover {
+                    transform: scale(1.1);
+                    background-color: #6C837B;
+                }
+
+                .heart-button:hover img {
+                    filter: brightness(0) invert(1);
+                }
+
                 .heart-button img {
-                    width: 24px;
-                    height: 24px;
+                    width: 25px;
+                    height: 25px;
+                    transition: filter 0.3s ease;
                 }
+
+                .heart-button.active {
+                    background-color: #ff4d6d;
+                    border-color: #ff4d6d;
+                }
+
                 .heart-button.active img {
-                    filter: invert(20%) sepia(100%) saturate(7498%) hue-rotate(359deg) brightness(100%) contrast(115%);
+                    filter: brightness(0) invert(1);
                 }
+
+                .heart-button:active {
+                    transform: scale(0.95);
+                }
+
+                .heart-button:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 3px rgba(108, 131, 123, 0.3);
+                } 
             </style>
             <button class="heart-button">
                 <img src="/iconpic/heart.png" alt="like">
@@ -35,6 +70,7 @@ class LikeButtonComponent extends HTMLElement {
     }
 
     async setupLikeButton(recipeId) {
+        // Select the like button inside the shadow root
         const likeButton = this.shadowRoot.querySelector('.heart-button'); 
         if (!likeButton) {
             console.error("Like button not found.");
@@ -65,6 +101,7 @@ class LikeButtonComponent extends HTMLElement {
             return;
         }
 
+        // Fix: Use `async` inside the event listener
         likeButton.addEventListener('click', async () => {
             console.log('Like button clicked');
 

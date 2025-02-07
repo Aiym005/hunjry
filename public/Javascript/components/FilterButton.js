@@ -49,8 +49,8 @@ export default class FilterButton extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'filter') this.state.filter = newValue;
-        if (name === 'active') this.state.isActive = newValue !== null;
+        if (name == 'filter') this.state.filter = newValue;
+        if (name == 'active') this.state.isActive = newValue !== null;
         this.render();
     }
 }
