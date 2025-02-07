@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             updateImage(filter);
             updateIngredient(filter);
             setupSuggestedFood(filter);
-            setTimeout(() => setupLikeButton(filter), 0);
+            //setTimeout(() => setupLikeButton(filter), 0);
             setupDropdown();
             setupCommentForm(filter);
             displayComments(filter);

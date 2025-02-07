@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateUserInfo(user);
     
     // Load and display liked recipes
-    loadLikedRecipes(user.userId);
+    //loadLikedRecipes(user.userId);
 });
 /* Хэрэглэгчийн мэдээллийг дэлгэц дээр шинэчилж, харуулна. Хэрэглэгчийн нэр, утас, гэрийн хаяг, 
 имэйл зэргийг харуулах бөгөөд хариулах "Системээс гарах" товчийг нэмнэ. Хэрэглэгч гарах товчийг 
