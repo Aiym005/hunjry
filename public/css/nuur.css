@@ -123,16 +123,34 @@ header nav img:hover {
     width: 330px; 
     height: 400px; 
 }
+.food-item {
+    text-align: center;
+    background: #fff;
+    padding: 25px; /* Card huree bagasgah */
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease-in-out;
+    width: 290px; 
+    height: 350px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
 .food-item img {
     max-width: 100%;
-    height: 300px; 
-    border-radius: 15px;
+    height: 180px; 
+    border-radius: 10px;
     object-fit: cover;
+    margin-bottom: 10px; 
 }
+
 .food-item p {
-    font-size: 1.5rem;  
-    margin-top: 15px;
+    font-size: 1.3rem; 
     font-weight: bold;
+    margin: 0;
+    color: #333; 
 }
 .food-item:hover {
     transform: scale(1.1);
