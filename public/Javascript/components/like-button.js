@@ -9,7 +9,7 @@ class LikeButtonComponent extends HTMLElement {
         if (!recipeId) return;
 
         this.render();
-        this.setupLikeButton(recipeId);
+        await this.setupLikeButton(recipeId);
     }
 
     render() {
@@ -37,7 +37,6 @@ class LikeButtonComponent extends HTMLElement {
     async setupLikeButton(recipeId) {
         const likeButton = document.querySelector('.heart-button');
         
-        // Fix typo in localStorage key
         const user = JSON.parse(localStorage.getItem('user'));
 
         if (!user) {

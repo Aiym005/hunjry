@@ -1,7 +1,7 @@
-import FilterButton from './FilterButton.js';
-import Pagination from './Pagination.js';
-import RecipeCard from './RecipeCard.js';
-import SearchInput from './SearchInput.js';
+import './components/FilterButton.js';
+import './components/Pagination.js';
+import './components/RecipeCard.js';
+import './components/SearchInput.js';
 
 class RecipeApp {
     constructor() {
@@ -34,19 +34,16 @@ class RecipeApp {
     }
 
     setupEventListeners() {
-        // Filter button events
         document.addEventListener('filter-click', (e) => {
             const filter = e.detail.filter;
             this.applyFilter(filter);
         });
 
-        // Search input events
         document.addEventListener('search', (e) => {
             const query = e.detail.query;
             this.filterRecipes(query);
         });
 
-        // Pagination events
         document.addEventListener('page-change', (e) => {
             this.currentPage = e.detail.page;
             this.displayRecipes(this.currentPage);
