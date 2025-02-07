@@ -137,7 +137,7 @@ label.selected {
 }
 
 .fridge-item {
-    background: #f90;
+    background: rgb(210, 65, 233);
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
@@ -145,7 +145,7 @@ label.selected {
 }
 
 .fridge-item:hover {
-    background: red;
+    background: rgb(209, 97, 97);
 }
 
 #clear-fridge {
