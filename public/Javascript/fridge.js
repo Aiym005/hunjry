@@ -74,7 +74,7 @@ function updateFridgeDisplay(container) {
 }
 
 function setupCustomIngredientInput(addButton, container) {
-    addButton.addEventListener('click', () => {
+    addButton.addEventListener('click', async () => {
         const userId = JSON.parse(localStorage.getItem('user')).id;
         const newIngredientInput = document.getElementById('new-ingredient');
         const newIngredient = newIngredientInput.value.trim();
@@ -85,13 +85,19 @@ function setupCustomIngredientInput(addButton, container) {
             newIngredientInput.value = '';
         }
 
-        fetch('/api/insert-ingredients', {
+        const response = await fetch('/api/insert-ingredients', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ ingredient: newIngredient, userId: userId })
         });
+        const data = await response.json();
+        if (data.success) {
+            console.log('Ingredient added successfully');
+        } else {
+            console.error('Failed to add ingredient');
+        }
     });
 }
 

@@ -9,7 +9,7 @@ class LikeButtonComponent extends HTMLElement {
         if (!recipeId) return;
 
         this.render();
-        await this.setupLikeButton(recipeId);
+        this.setupLikeButton(recipeId);
     }
 
     render() {
@@ -35,56 +35,65 @@ class LikeButtonComponent extends HTMLElement {
     }
 
     async setupLikeButton(recipeId) {
-        const likeButton = this.shadowRoot.querySelector('.heart-button');  // Corrected line
+        const likeButton = this.shadowRoot.querySelector('.heart-button'); 
+        if (!likeButton) {
+            console.error("Like button not found.");
+            return;
+        }
 
         const user = JSON.parse(localStorage.getItem('user'));
-
-       
+        if (!user || !user.userId) {
+            console.error("User not found in local storage.");
+            return;
+        }
 
         try {
             const response = await fetch('/api/users');
+            if (!response.ok) throw new Error('Failed to fetch user data.');
+
             const userData = await response.json();
             const currentUser = userData.users.find(u => u.userId === user.userId);
+            if (!currentUser) throw new Error('User not found in API response.');
 
-            if (currentUser.likedFoods.includes(recipeId)) 
+            if (currentUser.likedFoods.includes(recipeId)) {
                 likeButton.classList.add('active');
-            console.log('Like button setup successfully');
-            likeButton.addEventListener('click', async () => {
-                console.log('Like button clicked');  // Debugging line
-            
-                try {
-                    const likeResponse = await fetch('/api/like-food', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            userId: user.userId,
-                            recipeId: recipeId
-                        })
-                    });
-            
-                    console.log('API Response:', likeResponse);  // Log the response object
-                    const data = await likeResponse.json();
-                    console.log('API Response Data:', data);  // Log the response data
-            
-                    if (data.success) {
-                        likeButton.classList.toggle('active');
-                        console.log('Like toggled successfully');
-                    } else {
-                        console.error('Error: ' + (data.message || 'Unknown error'));
-                        alert('Алдаа гарлаа: ' + (data.message || 'Тодорхойгүй алдаа'));
-                    }
-                } catch (error) {
-                    console.error('Like Error:', error);
-                    alert('Алдаа гарлаа');
-                }
-            });
-            
+            }
+
         } catch (error) {
             console.error('User Fetch Error:', error);
             alert('Хэрэглэгчийн мэдээлэл татаж чадсангүй');
+            return;
         }
+
+        likeButton.addEventListener('click', async () => {
+            console.log('Like button clicked');
+
+            try {
+                const likeResponse = await fetch('/api/like-food', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId: user.userId, recipeId: recipeId })
+                });
+
+                if (!likeResponse.ok) throw new Error(`HTTP error! Status: ${likeResponse.status}`);
+
+                const data = await likeResponse.json();
+                console.log('API Response Data:', data);
+
+                if (data.success) {
+                    likeButton.classList.toggle('active');
+                    console.log('Like toggled successfully');
+                } else {
+                    console.error('Error:', data.message || 'Unknown error');
+                    alert('Алдаа гарлаа: ' + (data.message || 'Тодорхойгүй алдаа'));
+                }
+            } catch (error) {
+                console.error('Like Error:', error);
+                alert('Алдаа гарлаа');
+            }
+        });
     }
 }
 

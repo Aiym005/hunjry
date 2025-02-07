@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        
+
         if (data && data.recipes) {
             recipesData = data.recipes;
 
             const urlParams = new URLSearchParams(window.location.search);
             const filter = parseInt(urlParams.get('id'));
-            
+
             if (!filter || isNaN(filter)) {
                 console.error('Invalid or missing recipe ID');
                 return;
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             setupDropdown();
             setupCommentForm(filter);
             displayComments(filter);
+            createRatingElement(recipesData.find(recipe => recipe.id === filter).rating);
         } else {
             console.error('Data format error: No "recipes" array in JSON');
         }
@@ -49,21 +50,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function setupSuggestedFood(id) {
     const sugFoods = document.querySelector('.suggested-foods');
-    sugFoods.innerHTML = ''; 
-    
+    sugFoods.innerHTML = '';
+
     const currentRecipe = recipesData.find(recipe => recipe.id === id);
-    if (!currentRecipe) 
+    if (!currentRecipe)
         return;
 
-    const filteredData = recipesData.filter(recipe => 
-        recipe.id !== id && 
-        recipe.mealType.some(type => 
+    const filteredData = recipesData.filter(recipe =>
+        recipe.id !== id &&
+        recipe.mealType.some(type =>
             currentRecipe.mealType.includes(type)
         )
     );
 
     const suggestions = filteredData
-        .sort(() => 0.5 - Math.random()) 
+        .sort(() => 0.5 - Math.random())
         .slice(0, 2);
 
     if (suggestions.length === 0) {
@@ -89,9 +90,9 @@ function setupSuggestedFood(id) {
 function updateImage(filter) {
     const recipeImage = document.querySelector('.recipe-image');
     recipeImage.innerHTML = '';
-    
+
     const recipe = recipesData.find(recipe => recipe.id === filter);
-    
+
     if (recipe) {
         recipeImage.innerHTML = `
             <img src="${recipe.image}" alt="${recipe.name}">
@@ -122,54 +123,54 @@ function updateImage(filter) {
 буюу жагсаалтаар харуулна. Хайлтын үр дүн байхгүй бол жагсаалт нууж, байвал харуулна. */
 
 function setupDropdown() {
-  const searchBar = document.querySelector('.search-bar');
-  const dropdownContainer = document.querySelector('.dropdown-container');
-  const searchbar = document.querySelector('#search-bar');
-  
-  if (!dropdownContainer || !searchbar) return;
-  
-  dropdownContainer.innerHTML = '';
-  dropdownContainer.style.display = 'none';
-  
-  searchbar.addEventListener('input', (e) => {
-    const query = e.target.value.trim().toLowerCase();
+    const searchBar = document.querySelector('.search-bar');
+    const dropdownContainer = document.querySelector('.dropdown-container');
+    const searchbar = document.querySelector('#search-bar');
+
+    if (!dropdownContainer || !searchbar) return;
+
     dropdownContainer.innerHTML = '';
+    dropdownContainer.style.display = 'none';
 
-    if (query) {
-      const filteredRecipes = recipesData.filter(recipe =>
-        recipe.name.toLowerCase().includes(query)
-      );
+    searchbar.addEventListener('input', (e) => {
+        const query = e.target.value.trim().toLowerCase();
+        dropdownContainer.innerHTML = '';
 
-      if (filteredRecipes.length > 0) {
-        filteredRecipes.forEach(recipe => {
-          const foodItem = document.createElement('section');
-          foodItem.className = 'food-name';
-          foodItem.innerHTML = `
+        if (query) {
+            const filteredRecipes = recipesData.filter(recipe =>
+                recipe.name.toLowerCase().includes(query)
+            );
+
+            if (filteredRecipes.length > 0) {
+                filteredRecipes.forEach(recipe => {
+                    const foodItem = document.createElement('section');
+                    foodItem.className = 'food-name';
+                    foodItem.innerHTML = `
             <img src="${recipe.image}" alt="${recipe.name}">
             <a href='/htmls/hool_detail.html?id=${recipe.id}'>${recipe.name}</a>
           `;
-          dropdownContainer.appendChild(foodItem);
-        });
-        dropdownContainer.style.display = 'block'; 
-      } else {
-        dropdownContainer.style.display = 'none'; 
-      }
-    } else {
-      dropdownContainer.style.display = 'none'; 
-    }
-  });
+                    dropdownContainer.appendChild(foodItem);
+                });
+                dropdownContainer.style.display = 'block';
+            } else {
+                dropdownContainer.style.display = 'none';
+            }
+        } else {
+            dropdownContainer.style.display = 'none';
+        }
+    });
 }
 /* Жорын орцууд болон зааврыг дэлгэц дээр харуулах. Жорын дэлгэрэнгүй мэдээлэл гарахад, тухайн 
 жорын ID-г URL-д нэмнэ. */
 
 function updateIngredient(filter) {
-  const recipeContent = document.querySelector('.recipe-content');
-  recipeContent.innerHTML = '';
+    const recipeContent = document.querySelector('.recipe-content');
+    recipeContent.innerHTML = '';
 
-  const recipe = recipesData.find(recipe => recipe.id === filter);
+    const recipe = recipesData.find(recipe => recipe.id === filter);
 
-  if (recipe) {
-    recipeContent.innerHTML = `
+    if (recipe) {
+        recipeContent.innerHTML = `
       <section class="ingredients">
         <h2>Орц</h2>
         <ol>
@@ -182,12 +183,12 @@ function updateIngredient(filter) {
       </section>
     `;
 
-    const url = new URL(window.location);
-    url.searchParams.set('id', recipe.id);
-    window.history.pushState({}, '', url);
-  } else {
-    recipeContent.innerHTML = `<p>Recipe details not found.</p>`;
-  }
+        const url = new URL(window.location);
+        url.searchParams.set('id', recipe.id);
+        window.history.pushState({}, '', url);
+    } else {
+        recipeContent.innerHTML = `<p>Recipe details not found.</p>`;
+    }
 }
 /* Хэрэглэгч нэвтэрсэн бол тухайн жорын лайк товчийг тохируулж, лайк тавих үйлдлийг гүйцэтгэнэ. 
 Хэрэглэгч нэвтрээгүй бол нэвтрэх шаардлагатайг хэлж, нэвтрэх хуудсанд шилжүүлнэ. 
@@ -197,7 +198,7 @@ function updateIngredient(filter) {
 // async function setupLikeButton(recipeId) {
 //     const likeButton = document.querySelector('.heart-button');
 //     const user = JSON.parse(localStorage.getItem('user'));
-    
+
 //     if (!user) {
 //         likeButton.addEventListener('click', () => {
 //             alert('Та эхлээд нэвтрэх шаардлагатай!');
@@ -209,7 +210,7 @@ function updateIngredient(filter) {
 //     const response = await fetch('/api/users');
 //     const userData = await response.json();
 //     const currentUser = userData.users.find(u => u.userId === user.userId);
-    
+
 //     if (currentUser.likedFoods && currentUser.likedFoods.includes(recipeId)) {
 //         likeButton.classList.add('active');
 //     }
@@ -228,7 +229,7 @@ function updateIngredient(filter) {
 //             });
 
 //             const data = await response.json();
-            
+
 //             if (data.success) {
 //                 likeButton.classList.toggle('active');
 //             } else {
@@ -265,7 +266,7 @@ async function setupCommentForm(recipeId) {
 
     commentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const commentText = commentInput.value.trim();
         if (!commentText) {
             alert('Сэтгэгдэл хоосон байж болохгүй!');
@@ -290,7 +291,7 @@ async function setupCommentForm(recipeId) {
             }
 
             const data = await response.json();
-            
+
             if (data.success) {
                 const recipe = recipesData.find(r => r.id === recipeId);
                 if (recipe) {
@@ -306,14 +307,14 @@ async function setupCommentForm(recipeId) {
                     <img src="/iconpic/profile.png" alt="user">
                     <p>${commentText}</p>
                 `;
-                
+
                 const firstComment = commentsSection.querySelector('.comment');
                 if (firstComment) {
                     commentsSection.insertBefore(newComment, firstComment);
                 } else {
                     commentsSection.appendChild(newComment);
                 }
-                
+
                 commentInput.value = '';
             } else {
                 alert('Алдаа гарлаа: ' + (data.message || 'Тодорхойгүй алдаа'));
@@ -330,11 +331,11 @@ async function setupCommentForm(recipeId) {
 function displayComments(recipeId) {
     const commentsSection = document.querySelector('.comments');
     const commentForm = document.querySelector('.comment-input');
-    
+
     // Clear existing comments except the form
     const existingComments = commentsSection.querySelectorAll('.comment');
     existingComments.forEach(comment => comment.remove());
-    
+
     const recipe = recipesData.find(r => r.id === recipeId);
     if (recipe && recipe.comments) {
         recipe.comments.forEach(comment => {
@@ -347,4 +348,30 @@ function displayComments(recipeId) {
             commentsSection.appendChild(commentElement);
         });
     }
+}
+
+function createRatingElement(score = 5, maxStars = 5) {
+    const template = document.getElementById('rating-template');
+    if (!template) return null;
+
+    const clone = template.content.cloneNode(true);
+    const starsContainer = clone.querySelector('.stars');
+    const textLabel = clone.querySelector('.visually-hidden');
+
+    for (let i = 0; i < maxStars; i++) {
+        const img = document.createElement('img');
+        img.src = "/iconpic/pizza.png";
+        img.alt = "";
+        img.setAttribute("aria-hidden", "true");
+
+        if (i >= score) {
+            img.style.filter = "grayscale(100%)";
+        }
+
+        starsContainer.appendChild(img);
+    }
+
+    textLabel.textContent = `${score} оноо өгсөн`;
+
+    document.getElementById('rating-section').appendChild(clone);
 }
