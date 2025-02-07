@@ -24,10 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('No user logged in.');
         return;
     }
-    if (!recipeId) {
-        console.error('No recipes.');
-        return;
-    }
+
     console.log('app.js is loaded and running');
 
     // Get user's liked recipes

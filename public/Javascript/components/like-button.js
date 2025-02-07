@@ -35,17 +35,11 @@ class LikeButtonComponent extends HTMLElement {
     }
 
     async setupLikeButton(recipeId) {
-        const likeButton = document.querySelector('.heart-button');
-        
+        const likeButton = this.shadowRoot.querySelector('.heart-button');  // Corrected line
+
         const user = JSON.parse(localStorage.getItem('user'));
 
-        if (!user) {
-            likeButton.addEventListener('click', () => {
-                alert('Та эхлээд нэвтрэх шаардлагатай!');
-                window.location.href = '/htmls/login.html';
-            });
-            return;
-        }
+       
 
         try {
             const response = await fetch('/api/users');
@@ -54,8 +48,10 @@ class LikeButtonComponent extends HTMLElement {
 
             if (currentUser.likedFoods.includes(recipeId)) 
                 likeButton.classList.add('active');
-
+            console.log('Like button setup successfully');
             likeButton.addEventListener('click', async () => {
+                console.log('Like button clicked');  // Debugging line
+            
                 try {
                     const likeResponse = await fetch('/api/like-food', {
                         method: 'POST',
@@ -67,13 +63,16 @@ class LikeButtonComponent extends HTMLElement {
                             recipeId: recipeId
                         })
                     });
-
+            
+                    console.log('API Response:', likeResponse);  // Log the response object
                     const data = await likeResponse.json();
-
+                    console.log('API Response Data:', data);  // Log the response data
+            
                     if (data.success) {
                         likeButton.classList.toggle('active');
-                        console.log(data.success);
+                        console.log('Like toggled successfully');
                     } else {
+                        console.error('Error: ' + (data.message || 'Unknown error'));
                         alert('Алдаа гарлаа: ' + (data.message || 'Тодорхойгүй алдаа'));
                     }
                 } catch (error) {
@@ -81,6 +80,7 @@ class LikeButtonComponent extends HTMLElement {
                     alert('Алдаа гарлаа');
                 }
             });
+            
         } catch (error) {
             console.error('User Fetch Error:', error);
             alert('Хэрэглэгчийн мэдээлэл татаж чадсангүй');
@@ -89,5 +89,3 @@ class LikeButtonComponent extends HTMLElement {
 }
 
 customElements.define('like-button', LikeButtonComponent);
-
-export default LikeButtonComponent;
