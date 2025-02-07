@@ -1,93 +1,122 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const ingredientContainers = document.querySelectorAll(".category label");
-    const fridgeIngredientsContainer = document.getElementById("fridge-ingredients");
-    const clearFridgeBtn = document.getElementById("clear-fridge");
-    const findRecipesBtn = document.getElementById("find-recipes");
-    const recipeList = document.getElementById("recipe-list");
-    let fridgeIngredients = [];
+let recipesData = [];
+let ingredientsData = [];
+let fridgeIngredients = [];
 
-    function updateFridge() {
-        fridgeIngredientsContainer.innerHTML = "";
-        fridgeIngredients.forEach(ingredient => {
-            const ingredientItem = document.createElement("span");
-            ingredientItem.textContent = ingredient;
-            ingredientItem.classList.add("fridge-item");
-            ingredientItem.addEventListener("click", () => removeFromFridge(ingredient));
-            fridgeIngredientsContainer.appendChild(ingredientItem);
-        });
-    }
-
-    function addToFridge(ingredient, label = null) {
-        if (!fridgeIngredients.includes(ingredient)) {
-            fridgeIngredients.push(ingredient);
-            if (label) label.style.backgroundColor = "#f90";
-            updateFridge();
-        }
-    }
-
-    function removeFromFridge(ingredient) {
-        fridgeIngredients = fridgeIngredients.filter(item => item !== ingredient);
-        ingredientContainers.forEach(label => {
-            if (label.textContent.trim() === ingredient) {
-                label.style.backgroundColor = "";
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/api/recipes')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
             }
-        });
-        updateFridge();
-    }
+            return response.json();
+        })
+        .then(data => {
+            if (data && data.recipes) {
+                recipesData = data.recipes;
+            } else {
+                console.error('Data format error: No "recipes" array in JSON');
+            }
+        })
+        .catch(error => console.error('Error fetching recipes:', error));
 
+    const ingredientContainers = document.querySelectorAll('.category label');
+    const fridgeIngredientsContainer = document.getElementById('fridge-ingredients');
+    const clearFridgeBtn = document.getElementById('clear-fridge');
+    const findRecipesBtn = document.getElementById('find-recipes');
+    const recipeList = document.getElementById('recipe-list');
+    const addIngredientBtn = document.getElementById('add-ingredient-btn');
+
+    setupIngredientListeners(ingredientContainers, fridgeIngredientsContainer);
+    setupCustomIngredientInput(addIngredientBtn, fridgeIngredientsContainer);
+    setupClearFridge(clearFridgeBtn, ingredientContainers, fridgeIngredientsContainer);
+    setupRecipeSearch(findRecipesBtn, recipeList);
+});
+
+function setupIngredientListeners(ingredientContainers, fridgeIngredientsContainer) {
     ingredientContainers.forEach(label => {
-        label.addEventListener("click", () => {
+        label.addEventListener('click', () => {
             const ingredient = label.textContent.trim();
-            addToFridge(ingredient, label);
+            addToFridge(ingredient, label, fridgeIngredientsContainer);
         });
     });
+}
 
-    document.getElementById("add-ingredient-btn").addEventListener("click", () => {
-        const newIngredientInput = document.getElementById("new-ingredient");
+function addToFridge(ingredient, label, container) {
+    if (!fridgeIngredients.includes(ingredient)) {
+        fridgeIngredients.push(ingredient);
+        label.style.backgroundColor = '#f90';
+        updateFridgeDisplay(container);
+    }
+}
+
+function removeFromFridge(ingredient, ingredientContainers, container) {
+    fridgeIngredients = fridgeIngredients.filter(item => item !== ingredient);
+    ingredientContainers.forEach(label => {
+        if (label.textContent.trim() === ingredient) {
+            label.style.backgroundColor = '';
+        }
+    });
+    updateFridgeDisplay(container);
+}
+
+function updateFridgeDisplay(container) {
+    container.innerHTML = '';
+    fridgeIngredients.forEach(ingredient => {
+        const ingredientItem = document.createElement('span');
+        ingredientItem.textContent = ingredient;
+        ingredientItem.classList.add('fridge-item');
+        ingredientItem.addEventListener('click', () => {
+            const ingredientContainers = document.querySelectorAll('.category label');
+            removeFromFridge(ingredient, ingredientContainers, container);
+        });
+        container.appendChild(ingredientItem);
+    });
+}
+
+function setupCustomIngredientInput(addButton, container) {
+    addButton.addEventListener('click', () => {
+        const newIngredientInput = document.getElementById('new-ingredient');
         const newIngredient = newIngredientInput.value.trim();
+        
         if (newIngredient && !fridgeIngredients.includes(newIngredient)) {
             fridgeIngredients.push(newIngredient);
-            updateFridge();
-            newIngredientInput.value = "";
+            updateFridgeDisplay(container);
+            newIngredientInput.value = '';
         }
     });
+}
 
-    clearFridgeBtn.addEventListener("click", () => {
+function setupClearFridge(clearButton, ingredientContainers, container) {
+    clearButton.addEventListener('click', () => {
         fridgeIngredients = [];
-        ingredientContainers.forEach(label => label.style.backgroundColor = "");
-        updateFridge();
+        ingredientContainers.forEach(label => label.style.backgroundColor = '');
+        updateFridgeDisplay(container);
     });
+}
 
-    function searchRecipes() {
-        fetch("/json/recipes.json")  
-            .then(response => {
-                console.log("Fetch Response:", response);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Fetched Recipes:", data);
-                recipeList.innerHTML = "";
-                
-                const availableRecipes = data.recipes.filter(recipe => 
-                    recipe.ingredients.every(ingredient => fridgeIngredients.includes(ingredient))
-                );
+function setupRecipeSearch(findButton, recipeList) {
+    findButton.addEventListener('click', () => {
+        recipeList.innerHTML = '';
+        
+        const availableRecipes = recipesData.filter(recipe =>
+            recipe.ingredients.some(ingredient => 
+                fridgeIngredients.includes(ingredient)
+            )
+        );
 
-                if (availableRecipes.length === 0) {
-                    recipeList.innerHTML = "<p>Тохирох жор олдсонгүй.</p>";
-                    return;
-                }
+        if (availableRecipes.length === 0) {
+            recipeList.innerHTML = '<p>Тохирох жор олдсонгүй.</p>';
+            return;
+        }
 
-                availableRecipes.forEach(recipe => {
-                    const recipeItem = document.createElement("li");
-                    recipeItem.innerHTML = `<strong>${recipe.name}</strong>`;
-                    recipeList.appendChild(recipeItem);
-                });
-            })
-            .catch(error => console.error("Жор уншихад алдаа гарлаа:", error));
-    }
-
-    findRecipesBtn.addEventListener("click", searchRecipes);
-});
+        availableRecipes.forEach(recipe => {
+            const recipeItem = document.createElement('li');
+            recipeItem.innerHTML = ` 
+              <img src="${recipe.image}" alt="${recipe.name}">
+              <a href='/htmls/hool_detail.html?id=${recipe.id}'>${recipe.name}</a>
+            `;
+            
+            recipeList.appendChild(recipeItem);
+        });
+    });
+}
