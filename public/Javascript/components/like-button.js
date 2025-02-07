@@ -5,10 +5,13 @@ class LikeButtonComponent extends HTMLElement {
 
     async connectedCallback() {
         const recipeId = this.getAttribute('recipe-id');
-        if (!recipeId) return;
+        if (!recipeId) {
+            console.error('❌ recipe-id attribute is missing!');
+            return;
+        }
     
         // Set recipeId and userId instance variables
-        this.recipeId = recipeId;
+        this.recipeId = Number(recipeId); // recipeId-г тоо болгон хувиргав
         const user = JSON.parse(localStorage.getItem('user'));
         this.userId = user?.userId;
     
@@ -31,7 +34,7 @@ class LikeButtonComponent extends HTMLElement {
     async setupLikeButton() {
         console.log('✅ setupLikeButton started');
         
-        const likeButton = this.querySelector('.heart-button');
+        const likeButton = this.querySelector('.heart-button'); // this ашиглах ёстой
         if (!likeButton) {
             console.error('❌ likeButton is null');
             return;
@@ -40,8 +43,7 @@ class LikeButtonComponent extends HTMLElement {
         console.log('✅ likeButton found:', likeButton);
     
         // Check User Authentication
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (!user) {
+        if (!this.userId) {
             likeButton.addEventListener('click', () => {
                 alert('Та эхлээд нэвтрэх шаардлагатай!');
                 window.location.href = '/htmls/login.html';
@@ -96,7 +98,6 @@ class LikeButtonComponent extends HTMLElement {
     
         console.log('✅ Click event added');
     }
-    
 }
 
 customElements.define('like-button', LikeButtonComponent);
