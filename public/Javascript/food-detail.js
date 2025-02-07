@@ -194,52 +194,52 @@ function updateIngredient(filter) {
 Лайк товчийг дарахад, like-food API руу хүсэлт илгээж, лайк буюу идэвхжүүлэх/идэвхгүй болгох 
 үйлдлийг гүйцэтгэнэ. */
 
-async function setupLikeButton(recipeId) {
-    const likeButton = document.querySelector('.heart-button');
-    const user = JSON.parse(localStorage.getItem('user'));
+// async function setupLikeButton(recipeId) {
+//     const likeButton = document.querySelector('.heart-button');
+//     const user = JSON.parse(localStorage.getItem('user'));
     
-    if (!user) {
-        likeButton.addEventListener('click', () => {
-            alert('Та эхлээд нэвтрэх шаардлагатай!');
-            window.location.href = '/htmls/login.html';
-        });
-        return;
-    }
+//     if (!user) {
+//         likeButton.addEventListener('click', () => {
+//             alert('Та эхлээд нэвтрэх шаардлагатай!');
+//             window.location.href = '/htmls/login.html';
+//         });
+//         return;
+//     }
 
-    const response = await fetch('/api/users');
-    const userData = await response.json();
-    const currentUser = userData.users.find(u => u.userId === user.userId);
+//     const response = await fetch('/api/users');
+//     const userData = await response.json();
+//     const currentUser = userData.users.find(u => u.userId === user.userId);
     
-    if (currentUser.likedFoods && currentUser.likedFoods.includes(recipeId)) {
-        likeButton.classList.add('active');
-    }
+//     if (currentUser.likedFoods && currentUser.likedFoods.includes(recipeId)) {
+//         likeButton.classList.add('active');
+//     }
 
-    likeButton.addEventListener('click', async () => {
-        try {
-            const response = await fetch('/api/like-food', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userId: user.userId,
-                    recipeId: recipeId
-                })
-            });
+//     likeButton.addEventListener('click', async () => {
+//         try {
+//             const response = await fetch('/api/like-food', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({
+//                     userId: user.userId,
+//                     recipeId: recipeId
+//                 })
+//             });
 
-            const data = await response.json();
+//             const data = await response.json();
             
-            if (data.success) {
-                likeButton.classList.toggle('active');
-            } else {
-                alert('Алдаа гарлаа: ' + data.message);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Алдаа гарлаа');
-        }
-    });
-}
+//             if (data.success) {
+//                 likeButton.classList.toggle('active');
+//             } else {
+//                 alert('Алдаа гарлаа: ' + data.message);
+//             }
+//         } catch (error) {
+//             console.error('Error:', error);
+//             alert('Алдаа гарлаа');
+//         }
+//     });
+// }
 /* Сэтгэгдэл бичих хэсэг үүсгэдэг. Хэрэглэгч нэвтрээгүй бол нэвтрэхийг шаарддаг. Сэтгэгдэл бичиж, 
 "comments" API руу илгээх бөгөөд амжилттай бол жорын сэтгэгдэлд шинэ сэтгэгдлийг нэмнэ. 
 Мөн шинэ сэтгэгдлийг дэлгэц дээр үзүүлнэ. */
