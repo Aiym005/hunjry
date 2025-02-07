@@ -29,13 +29,7 @@ try {
     ingredientsData = { ingredients: [] };
 }
 
-let userData;
-try {
-    userData = JSON.parse(fs.readFileSync('./json/user.json'));
-} catch (error) {
-    console.error('Error reading user.json:', error);
-    userData = { users: [] };
-}
+let userData = JSON.parse(fs.readFileSync('./json/user.json', 'utf-8'));
 
 app.get('/api/recipes', (req, res) => {
     try {
@@ -125,6 +119,7 @@ app.get('/htmls/:file', (req, res) => {
 app.post('/api/like-food', (req, res) => {
     const { userId, recipeId } = req.body;
 
+    // Ensure that userData.users is properly loaded
     const user = userData.users.find(u => u.userId === userId);
 
     if (user) {
@@ -134,7 +129,6 @@ app.post('/api/like-food', (req, res) => {
 
         if (!user.likedFoods.includes(recipeId)) {
             user.likedFoods.push(recipeId);
-
             fs.writeFileSync('./json/user.json', JSON.stringify(userData, null, 2));
 
             res.json({ success: true, message: 'Food added to favorites' });
@@ -148,7 +142,6 @@ app.post('/api/like-food', (req, res) => {
         res.json({ success: false, message: 'User not found' });
     }
 });
-
 app.get('/api/user/:userId/liked-recipes', (req, res) => {
     const userId = parseInt(req.params.userId);
     const user = userData.users.find(u => u.userId === userId);
