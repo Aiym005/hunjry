@@ -59,12 +59,10 @@
     filter: brightness(0) invert(1);
 }
 
-/* Add ripple effect on click */
 .heart-button:active, .comment-button:active {
     transform: scale(0.95);
 }
 
-/* Add focus state for accessibility */
 .heart-button:focus, .comment-button:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(108, 131, 123, 0.3);

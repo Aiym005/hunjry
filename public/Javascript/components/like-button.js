@@ -158,7 +158,7 @@ export default class LikeButtonComponent extends HTMLElement {
     }
 
     setState(state) {
-        this.setAttribute('state', state);  // This will set the state directly as an attribute
+        this.setAttribute('state', state);  
     }
 
     applyTheme() {
@@ -166,7 +166,6 @@ export default class LikeButtonComponent extends HTMLElement {
         const isDarkMode = root.getAttribute('data-theme') === 'dark';
         this.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
 
-        // Theme changes will automatically be applied to LikeButtonComponent
         const observer = new MutationObserver(() => {
             const isDark = root.getAttribute('data-theme') === 'dark';
             this.setAttribute('data-theme', isDark ? 'dark' : 'light');
