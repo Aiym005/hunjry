@@ -10,7 +10,7 @@ class LikedRecipesComponent extends HTMLElement {
 
         console.log('📌 LikedRecipesComponent is loaded and running');
         
-        this.renderSkeleton(); // Show initial structure before loading
+        this.render(); // Show initial structure before loading
         await this.loadLikedRecipes(userId);
     }
 
