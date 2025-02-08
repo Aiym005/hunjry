@@ -1,7 +1,7 @@
 class LikedRecipesComponent extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' }); // Attach Shadow DOM
+        this.attachShadow({ mode: 'open' });
     }
 
     async connectedCallback() {
@@ -10,11 +10,11 @@ class LikedRecipesComponent extends HTMLElement {
 
         console.log('📌 LikedRecipesComponent is loaded and running');
         
-        this.renderSkeleton(); // Show initial structure before loading
+        this.render();
         await this.loadLikedRecipes(userId);
     }
 
-    renderSkeleton() {
+    render() {
         this.shadowRoot.innerHTML = `
             <style>
                 p {
@@ -65,7 +65,7 @@ class LikedRecipesComponent extends HTMLElement {
             console.log('📌 Liked Recipes:', likedRecipes);
 
             const container = this.shadowRoot.querySelector('.recipes-container');
-            container.innerHTML = ''; // Clear loading message
+            container.innerHTML = ''; 
 
             if (!Array.isArray(likedRecipes) || likedRecipes.length === 0) {
                 container.innerHTML = '<p>Таньд одоогоор таалагдсан хоол байхгүй байна.</p>';
