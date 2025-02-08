@@ -100,7 +100,7 @@ class LikedRecipesComponent extends HTMLElement {
             if (!Array.isArray(likedRecipes) || likedRecipes.length === 0) {
                 container.innerHTML = '<p>Таньд одоогоор таалагдсан хоол байхгүй байна.</p>';
                 return;
-            }
+                }
 
             likedRecipes.forEach(recipe => {
                 if (recipe) {
