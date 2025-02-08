@@ -37,7 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const likeButtonContainer = document.querySelector('.like-button-container');
     if (likeButtonContainer) {
         console.log(recipeId)
-        likeButtonContainer.innerHTML = `<like-button recipe-id="${recipeId}"></like-button>`;
+        likeButtonContainer.innerHTML = `<like-button recipe-id="${recipeId}">
+        
+        </like-button>`;
     }
 
     // Add Liked Recipes Component

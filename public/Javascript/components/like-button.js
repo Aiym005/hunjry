@@ -1,4 +1,4 @@
-class LikeButtonComponent extends HTMLElement {
+export default class LikeButtonComponent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -10,14 +10,33 @@ class LikeButtonComponent extends HTMLElement {
 
         this.render();
         this.setupLikeButton(recipeId);
+        this.applyTheme();
     }
 
     render() {
         this.shadowRoot.innerHTML = `
             <style>
+                :host {
+                    --button-bg: var(--primary-bg, #f8f8f8);
+                    --button-border: var(--primary-border, #6C837B);
+                    --button-hover-bg: var(--hover-bg, #6C837B);
+                    --button-active-bg: var(--active-bg, #ff4d6d);
+                    --button-icon-filter: var(--icon-filter, invert(0));
+                    --button-disabled-bg: var(--disabled-bg, #ccc);
+                }
+
+                :host([data-theme="dark"]) {
+                    --button-bg: var(--dark-bg, #333);
+                    --button-border: var(--dark-border, #999);
+                    --button-hover-bg: var(--dark-hover-bg, #555);
+                    --button-active-bg: var(--dark-active-bg, #ff4d6d);
+                    --button-icon-filter: var(--dark-icon-filter, invert(1));
+                    --button-disabled-bg: var(--dark-disabled-bg, #444);
+                }
+
                 .heart-button {
-                    background: none;
-                    border: 2px solid #6C837B;
+                    background: var(--button-bg);
+                    border: 2px solid var(--button-border);
                     border-radius: 50%;
                     cursor: pointer;
                     padding: 8px;
@@ -30,13 +49,37 @@ class LikeButtonComponent extends HTMLElement {
                     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
                 }
 
+                .heart-button:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 3px rgba(108, 131, 123, 0.3);
+                }
+
+                /* Default button state */
+                :host([state="idle"]) .heart-button {
+                    background-color: var(--button-bg);
+                    border-color: var(--button-border);
+                }
+
+                /* Active state */
+                :host([state="active"]) .heart-button {
+                    background-color: var(--button-active-bg);
+                    border-color: var(--button-active-bg);
+                }
+
+                /* Disabled state */
+                :host([state="disabled"]) .heart-button {
+                    background-color: var(--button-disabled-bg);
+                    border-color: var(--button-disabled-bg);
+                    cursor: not-allowed;
+                }
+
                 .heart-button:hover {
                     transform: scale(1.1);
-                    background-color: #6C837B;
+                    background-color: var(--button-hover-bg);
                 }
 
                 .heart-button:hover img {
-                    filter: brightness(0) invert(1);
+                    filter: var(--button-icon-filter);
                 }
 
                 .heart-button img {
@@ -44,34 +87,19 @@ class LikeButtonComponent extends HTMLElement {
                     height: 25px;
                     transition: filter 0.3s ease;
                 }
-
-                .heart-button.active {
-                    background-color: #ff4d6d;
-                    border-color: #ff4d6d;
-                }
-
-                .heart-button.active img {
-                    filter: brightness(0) invert(1);
-                }
-
-                .heart-button:active {
-                    transform: scale(0.95);
-                }
-
-                .heart-button:focus {
-                    outline: none;
-                    box-shadow: 0 0 0 3px rgba(108, 131, 123, 0.3);
-                } 
             </style>
+
             <button class="heart-button">
-                <img src="/iconpic/heart.png" alt="like">
+                <slot name="icon">
+                    <img src="/iconpic/heart.png" alt="like">
+                </slot>
             </button>
+            <slot name="button-text"></slot>
         `;
     }
 
     async setupLikeButton(recipeId) {
-        // Select the like button inside the shadow root
-        const likeButton = this.shadowRoot.querySelector('.heart-button'); 
+        const likeButton = this.shadowRoot.querySelector('.heart-button');
         if (!likeButton) {
             console.error("Like button not found.");
             return;
@@ -92,7 +120,9 @@ class LikeButtonComponent extends HTMLElement {
             if (!currentUser) throw new Error('User not found in API response.');
 
             if (currentUser.likedFoods.includes(recipeId)) {
-                likeButton.classList.add('active');
+                this.setState('active');
+            } else {
+                this.setState('idle');
             }
 
         } catch (error) {
@@ -101,36 +131,48 @@ class LikeButtonComponent extends HTMLElement {
             return;
         }
 
-        // Fix: Use `async` inside the event listener
         likeButton.addEventListener('click', async () => {
-            console.log('Like button clicked');
-
             try {
                 const likeResponse = await fetch('/api/like-food', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ userId: user.userId, recipeId: recipeId })
                 });
 
                 if (!likeResponse.ok) throw new Error(`HTTP error! Status: ${likeResponse.status}`);
 
                 const data = await likeResponse.json();
-                console.log('API Response Data:', data);
-
                 if (data.success) {
-                    likeButton.classList.toggle('active');
-                    console.log('Like toggled successfully');
+                    if (this.getAttribute('state') === 'active') {
+                        this.setState('idle');
+                    } else {
+                        this.setState('active');
+                    }
                 } else {
-                    console.error('Error:', data.message || 'Unknown error');
                     alert('Алдаа гарлаа: ' + (data.message || 'Тодорхойгүй алдаа'));
                 }
             } catch (error) {
-                console.error('Like Error:', error);
                 alert('Алдаа гарлаа');
             }
         });
+    }
+
+    setState(state) {
+        this.setAttribute('state', state);  // This will set the state directly as an attribute
+    }
+
+    applyTheme() {
+        const root = document.documentElement;
+        const isDarkMode = root.getAttribute('data-theme') === 'dark';
+        this.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+
+        // Theme changes will automatically be applied to LikeButtonComponent
+        const observer = new MutationObserver(() => {
+            const isDark = root.getAttribute('data-theme') === 'dark';
+            this.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        });
+
+        observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
     }
 }
 

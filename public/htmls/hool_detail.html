@@ -20,6 +20,34 @@
     <link rel="stylesheet" href="/css/hool_detail.css">
     <script type="module" src="/Javascript/components/app.js" defer></script>
     <script src="/Javascript/food-detail.js" defer></script>
+    <style>
+        :root {
+            --primary-bg: #f8f8f8;
+            --primary-border: #6C837B;
+            --hover-bg: #6C837B;
+            --active-bg: #ff4d6d;
+            --icon-filter: invert(0);
+
+            --dark-bg: #333;
+            --dark-border: #999;
+            --dark-hover-bg: #555;
+            --dark-active-bg: #ff4d6d;
+            --dark-icon-filter: invert(1);
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body[data-theme="dark"] {
+            background-color: #222;
+            color: white;
+        }
+
+        
+    </style>
 </head>
 
 <body>
@@ -58,6 +86,8 @@
                 <img src="/iconpic/profile.png" alt="" width="30" height="30" loading="lazy" aria-hidden="true">
                 <span class="visually-hidden">Профайл</span>
             </a>
+            <button class="toggle-theme">🌗</button>
+
         </nav>
     </header>
 
@@ -151,6 +181,14 @@
             </ul>
         </section>
     </footer>
+    <script>
+        const toggleButton = document.querySelector('.toggle-theme');
+        toggleButton.addEventListener('click', () => {
+            const root = document.documentElement;
+            const isDarkMode = root.getAttribute('data-theme') === 'dark';
+            root.setAttribute('data-theme', isDarkMode ? 'light' : 'dark');
+        });
+    </script>
 
     <style>
         .visually-hidden {
