@@ -1,7 +1,7 @@
 class LikedRecipesComponent extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' }); // Attach Shadow DOM
+        this.attachShadow({ mode: 'open' });
     }
 
     async connectedCallback() {
@@ -10,42 +10,72 @@ class LikedRecipesComponent extends HTMLElement {
 
         console.log('📌 LikedRecipesComponent is loaded and running');
         
-        this.renderSkeleton(); // Show initial structure before loading
+        this.renderSkeleton();
         await this.loadLikedRecipes(userId);
     }
 
     renderSkeleton() {
         this.shadowRoot.innerHTML = `
             <style>
-                p {
-                    color: #000;
-                }
                 .recipes-container {
-                    display: flex;
-                    flex-wrap: wrap;
-                    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                    gap: 10px;
-                    padding: 10px;
-                    
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 30px;
+                    padding: 30px;
+                    width: 100%;
                 }
+                
                 article {
-                    border: 1px solid #ddd;
-                    padding: 10px;
-                    border-radius: 5px;
-                    text-align: center;
-                    transition: transform 0.2s;
+                    background: white;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    overflow: hidden;
+                    transition: transform 0.2s ease;
+                    width: 100%;
+                    min-width: 300px;
                 }
-                article:hover {
-                    transform: scale(1.05);
-                }
+                
                 img {
                     width: 100%;
-                    height: auto;
-                    border-radius: 5px;
+                    height: 300px;
+                    object-fit: cover;
+                    border-radius: 12px 12px 0 0;
                 }
+                
                 a {
                     text-decoration: none;
                     color: inherit;
+                    display: block;
+                }
+                
+                p {
+                    color: #333;
+                    padding: 20px;
+                    margin: 0;
+                    font-size: 18px;
+                    text-align: center;
+                    font-weight: 500;
+                }
+                
+                @media (max-width: 1400px) {
+                    .recipes-container {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+                
+                @media (max-width: 900px) {
+                    .recipes-container {
+                        grid-template-columns: repeat(1, 1fr);
+                        padding: 20px;
+                    }
+                    
+                    article {
+                        min-width: unset;
+                    }
+                    
+                    img {
+                        height: 250px;
+                    }
                 }
             </style>
             <div class="recipes-container">

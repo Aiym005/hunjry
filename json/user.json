@@ -22,12 +22,12 @@
       "username": "Enkhjargal",
       "password": "eeeeeeee",
       "likedFoods": [
-        4,
         5,
         2,
         8,
         15,
-        1
+        1,
+        4
       ],
       "address": "UB",
       "phoneNumber": 99854132,
@@ -38,15 +38,16 @@
       "username": "Aiym",
       "password": "iiiiiiii",
       "likedFoods": [
+        3,
+        1,
+        4,
         20,
         22,
         30,
         25,
         28,
         2,
-        17,
-        23,
-        3
+        17
       ],
       "address": "UB",
       "phoneNumber": 99854132,
