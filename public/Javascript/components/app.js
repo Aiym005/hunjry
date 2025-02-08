@@ -38,9 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (likeButtonContainer) {
         console.log(recipeId)
         likeButtonContainer.innerHTML = `<like-button recipe-id="${recipeId}">
-        <span slot="icon"><img src="/iconpic/custom-heart.png" alt="like"></span>
-    <!-- Custom text inside the button -->
-    <span slot="button-text">Таалагдсан</span>
+        
         </like-button>`;
     }
 
