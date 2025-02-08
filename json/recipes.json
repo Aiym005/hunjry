@@ -1127,6 +1127,13 @@
       "reviewCount": 0,
       "mealType": [
         "Амттан"
+      ],
+      "comments": [
+        {
+          "id": 1,
+          "body": "mm",
+          "userId": 3
+        }
       ]
     },
     {
