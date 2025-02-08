@@ -2,29 +2,30 @@ export default class RecipeCard extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.state = {
-            recipe: null
-        };
+        this._recipe = null;
     }
 
     set recipe(data) {
-        this.state.recipe = data;
+        this._recipe = data;
         this.render();
     }
 
+    get recipe() {
+        return this._recipe;
+    }
+
     render() {
-        const { recipe } = this.state;
-        if (!recipe) return;
+        if (!this._recipe) return;
 
         this.shadowRoot.innerHTML = `
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
+                
                 * {
                     margin: 0;
                     padding: 0;
                     box-sizing: border-box;
-                    font-family: 'Carlito';
+                    font-family: 'Carlito', sans-serif;
                 }
 
                 .recipe-card {
@@ -161,19 +162,20 @@ export default class RecipeCard extends HTMLElement {
                 }
             </style>
             <section class="recipe-card">
-                <img src="${recipe.image}" alt="${recipe.name}" class="food-pic">
+                <img src="${this._recipe.image}" alt="${this._recipe.name}" class="food-pic">
                 <section class="food-info">
-                    <h3>${recipe.name}</h3>
-                    <p>${recipe.caloriesPerServing || 'N/A'} кал</p>
+                    <h3>${this._recipe.name}</h3>
+                    <p>${this._recipe.caloriesPerServing || 'N/A'} кал</p>
                     <section class="ports">
-                        ${this.renderServings(recipe.servings)}
+                        ${this.renderServings(this._recipe.servings)}
                     </section>
-                    <a href="/htmls/hool_detail.html?id=${recipe.id}">
+                    <a href="/htmls/hool_detail.html?id=${this._recipe.id}">
                         <button class="view-recipe-btn">Жор харах</button>
                     </a>
                 </section>
             </section>
         `;
+
         this.setupEventListeners();
     }
 
@@ -187,7 +189,7 @@ export default class RecipeCard extends HTMLElement {
         const viewButton = this.shadowRoot.querySelector('.view-recipe-btn');
         viewButton.addEventListener('click', (e) => {
             this.dispatchEvent(new CustomEvent('recipe-view', {
-                detail: { recipeId: this.state.recipe.id },
+                detail: { recipeId: this._recipe.id },
                 bubbles: true
             }));
         });
